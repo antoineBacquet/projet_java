@@ -25,7 +25,6 @@ public class Window {
 		this.height = height;
 		this.width = width;
 		this.name = name;
-		this.content = content;
 		clock = new Clock();
 	}
 	
@@ -45,18 +44,24 @@ public class Window {
 				window.close();
 				WindowManager.removeWindow(this);
 			}
-			content.handleEvent(evt);
-		}
+			
+			if(content!=null)
+				content.handleEvent(evt);
+		}	
 	}
 	
 	public void update() {
 		time = clock.getElapsedTime();
-		content.update(time);
+		if(content!=null)
+			content.update(time);
 	}
 	
 	public void render() {
 		window.clear(Color.WHITE);
-		content.render(window);
+		
+		if(content!=null)
+			content.render(window);
+		
 		window.display();
 	}
 	

@@ -1,10 +1,12 @@
-package iut_lens.dut_info.monopoly.core.element;
+package iut_lens.dut_info.monopoly.vue;
 
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Time;
 import org.jsfml.window.event.Event;
 
-public abstract class Element implements ElementI {
+import iut_lens.dut_info.monopoly.core.Content;
+
+public class Menu extends Content {
 
 	@Override
 	public void handleEvent(Event evt) {
