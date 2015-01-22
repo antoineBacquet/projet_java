@@ -1,8 +1,8 @@
 package iut_lens.dut_info.monopoly.core;
 
 import org.jsfml.graphics.Color;
-import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.system.Clock;
 import org.jsfml.system.Time;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
@@ -16,10 +16,22 @@ public class Window {
 	private RenderWindow window;
 	private String name;
 	
+	private Content content;
+	
+	private Time time;
+	private Clock clock;
+	
 	public Window(int width, int height,String name){
 		this.height = height;
 		this.width = width;
 		this.name = name;
+		this.content = content;
+		clock = new Clock();
+	}
+	
+	public void setContent(Content content){
+		this.content = content;
+		content.setWindow(this);
 	}
 	
 	public void create(){
@@ -33,16 +45,18 @@ public class Window {
 				window.close();
 				WindowManager.removeWindow(this);
 			}
+			content.handleEvent(evt);
 		}
 	}
 	
 	public void update() {
-		
+		time = clock.getElapsedTime();
+		content.update(time);
 	}
 	
 	public void render() {
 		window.clear(Color.WHITE);
-		//TODO a faire
+		content.render(window);
 		window.display();
 	}
 	
