@@ -1,5 +1,6 @@
 package iut_lens.dut_info.monopoly.core;
 
+import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.core.element.Element;
 
 import java.util.LinkedList;
@@ -11,7 +12,7 @@ import org.jsfml.window.event.Event;
 
 public abstract class Content {
 	
-	private Window window;
+	protected Window window;
 	
 	private LinkedList<Element> elements;
 	
@@ -21,6 +22,7 @@ public abstract class Content {
 	
 	public void setWindow(Window window){
 		this.window = window;
+		onCreate();
 	}
 	
 	public Vector2i getMousePos(){
@@ -46,11 +48,15 @@ public abstract class Content {
 			e.render(target);
 	}
 	
+	public abstract void actionPerformed(Action action);
+	
 	
 	public abstract void handleEvent(Event evt);
 	
 	public abstract void update(Time tau);
 	
 	public abstract void render(RenderTarget target);
+	
+	protected abstract void onCreate();
 
 }

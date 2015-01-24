@@ -55,7 +55,18 @@ public class Button extends Element {
 	    text.setColor(Color.WHITE);
 	    text.setString(s);
 
-	    centerText();//Créer la méthode
+	    centerText();
+	}
+	
+	public Button(Content content, Vector2f size, String s) {
+		this(content,size,new Vector2f(0,0),s);
+	}
+	
+	public void setPositionRelative(Vector2f windowSize,float posX, float posY){
+		pos = new Vector2f(windowSize.x*posX - (this.size.x/2), windowSize.y*posY - (this.size.y/2));
+		
+		rectangle.setPosition(pos);
+		centerText();
 	}
 
 	@Override
@@ -79,7 +90,7 @@ public class Button extends Element {
 		if(event == EventButton.RELEASED ){
 	        wasClicked=false;
 	        if( Util.intersects(content.getMousePos(),rectangle) && etat == Etat.CLIC ){
-	        	//TODO code le déclenchement de l'action
+	        	content.actionPerformed(new Action(this));
 	            event = EventButton.NONE;
 	            return ;
 	        }

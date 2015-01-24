@@ -2,6 +2,7 @@ package iut_lens.dut_info.monopoly.core;
 
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.Text;
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 public class Util {
@@ -29,6 +30,13 @@ public class Util {
 	    }
 
 	    return width;
+	}
+
+
+	public static void centerTextRect(RectangleShape rect, Text text) {
+		text.setPosition(new Vector2f(	(rect.getSize().x-Util.getTextWidth(text))/2+rect.getPosition().x,
+										(rect.getSize().y-text.getCharacterSize())/2+rect.getPosition().y));
+		
 	}
 
 }

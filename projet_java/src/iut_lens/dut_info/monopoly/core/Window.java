@@ -4,6 +4,7 @@ import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.system.Time;
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
@@ -23,6 +24,9 @@ public class Window {
 	private Clock clock;
 	private Vector2i mouse;
 	
+	private boolean contentToChange = false;
+	private Content nextContent;
+	
 	public Window(int width, int height,String name){
 		this.height = height;
 		this.width = width;
@@ -37,7 +41,8 @@ public class Window {
 	}
 	
 	public void create(){
-		window = new RenderWindow(new VideoMode(height,width),name);
+		window = new RenderWindow(new VideoMode(height,width),name,RenderWindow.TITLEBAR|RenderWindow.CLOSE);
+		window.setFramerateLimit(60);
 	}
 	
 	
@@ -77,13 +82,28 @@ public class Window {
 		}
 		
 		window.display();
+		
+		if(contentToChange){
+			setContent(nextContent);
+			nextContent = null;
+			contentToChange = false;
+		}
 	}
 	
 	
 	public Vector2i getMousePos(){
 		return mouse;
 	}
+
+	public Vector2f getSize() {
+		return new Vector2f(this.window.getSize());
+	}
 	
+	
+	public void changeContent(Content c){
+		contentToChange = true;
+		nextContent = c;
+	}
 	
 	
 
