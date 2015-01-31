@@ -17,6 +17,16 @@ import org.jsfml.window.event.Event;
 public class Selector extends Element{
 
 	
+	private static Color defaultColor = new Color(56,101,135);
+	private static Color hoverColor = new Color(80,150,190);
+	
+	enum Etat {CLIC,NORMAL,HOVER};
+	enum EventSelector{NONE,CLICK,MOVED};
+	
+	Etat etat = Etat.NORMAL;
+	EventSelector event = EventSelector.NONE;
+	
+	
 	private String[] option;
 	
 	private int nbrOption;
@@ -48,8 +58,7 @@ public class Selector extends Element{
 		texts = new Text[nbrOption];
 		for (int i=0 ; i<nbrOption ; i++){
 			rects[i]= new RectangleShape(size);
-			rects[i].setOutlineThickness(1);
-			rects[i].setOutlineColor(Color.BLACK);
+			rects[i].setFillColor(defaultColor);
 			rects[i].setPosition(pos.x,pos.y+size.y*i+size.y);
 			
 			
@@ -61,8 +70,7 @@ public class Selector extends Element{
 		}
 		
 		actualRect= new RectangleShape(size);
-		actualRect.setOutlineThickness(1);
-		actualRect.setOutlineColor(Color.BLACK);
+		actualRect.setFillColor(defaultColor);
 		actualRect.setPosition(pos.x,pos.y);
 		
 		actualText = new Text(option[actual],FontManager.getFont("arial"),20);
@@ -71,6 +79,84 @@ public class Selector extends Element{
 	}
 	
 	
+	public void setPositionRelative(Vector2f windowSize,float posX, float posY){
+		pos = new Vector2f(windowSize.x*posX - (this.size.x/2), windowSize.y*posY - (this.size.y/2));
+		
+		for (int i=0 ; i<nbrOption ; i++){
+			rects[i].setPosition(pos.x,pos.y+size.y*i+size.y);
+			Util.centerTextRect(rects[i],texts[i]);
+		}
+		actualRect.setPosition(pos.x,pos.y);
+		Util.centerTextRect(actualRect,actualText);
+	}
+	
+	
+
+
+	@Override
+	public void handleEvent(Event evt) {
+		if(isDisabled)return;
+		if(evt.type==Event.Type.MOUSE_MOVED)
+			event = EventSelector.MOVED;
+		
+
+	    if(evt.type==Event.Type.MOUSE_BUTTON_PRESSED){
+	        if (evt.asMouseButtonEvent().button== Mouse.Button.LEFT){
+	        	event = EventSelector.CLICK;
+	        }
+	        
+	    }
+	    
+	    
+		
+	}
+	
+	@Override
+	public void update(Time tau) {
+		if(event == EventSelector.MOVED){
+			if(Util.intersects(content.getMousePos(), actualRect)){
+				actualRect.setFillColor(hoverColor);
+			}
+			else{
+				actualRect.setFillColor(defaultColor);
+			}
+			if(isDeployed){
+				for(RectangleShape r:rects)
+					if(Util.intersects(content.getMousePos(), r)){
+						r.setFillColor(hoverColor);
+					}
+					else{
+						r.setFillColor(defaultColor);
+					}
+			}
+			event = EventSelector.NONE;
+		}
+		
+		
+		if(event == EventSelector.CLICK){
+			event = EventSelector.NONE;
+			
+			if(isDeployed){
+				if(Util.intersects(content.getMousePos(), actualRect))
+					isDeployed = false;
+				else{
+					for(int i=0 ; i< rects.length ; i++){
+						if(Util.intersects(content.getMousePos(), rects[i])){
+							actual = i;
+							majActual();
+							isDeployed = false;
+						}
+							
+					}
+				}
+			}
+			else{
+				if(Util.intersects(content.getMousePos(), actualRect))
+					isDeployed = true;
+			}
+		}
+		
+	}
 	
 	@Override
 	public void render(RenderTarget window) {
@@ -85,34 +171,6 @@ public class Selector extends Element{
 		}
 		
 	}
-
-	@Override
-	public void handleEvent(Event evt) {
-
-
-
-	    if(evt.type==Event.Type.MOUSE_BUTTON_PRESSED){
-	        if (evt.asMouseButtonEvent().button== Mouse.Button.LEFT){
-	        	if(Util.intersects(content.getMousePos(), actualRect)){
-	        		isDeployed = !isDeployed;
-	        	}
-	        	else if(isDeployed){
-	        		for(int i=0 ; i<nbrOption ; i++){
-	    	        	if(Util.intersects(content.getMousePos(), actualRect)){
-	    	        		actual = i;
-	    	        		majActual();
-	    	        		isDeployed = false;
-	    	        	}
-	    	        }
-	        	}
-	        }
-	        
-	    }
-	    
-	    
-		
-	}
-	
 	
 	public void majActual(){
 		actualText.setString(option[actual]);
@@ -123,12 +181,23 @@ public class Selector extends Element{
 		return actual;
 	}
 
+
 	@Override
-	public void update(Time tau) {
-		// TODO Auto-generated method stub
+	public void disabled() {
+		isDisabled = true;
+		isDeployed = false;
+		event = EventSelector.NONE;
 		
 	}
-	
+
+
+	@Override
+	public void enable() {
+		isDisabled = false;
+		
+	}
+
+
 	
 	
 

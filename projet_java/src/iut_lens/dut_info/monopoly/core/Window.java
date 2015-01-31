@@ -49,8 +49,7 @@ public class Window {
 	public void handleEvent() {
 		for(Event evt:window.pollEvents()){
 			if(evt.type == Event.Type.CLOSED){
-				window.close();
-				WindowManager.removeWindow(this);
+				onClose();
 			}
 			else if(evt.type == Event.Type.MOUSE_MOVED){
 				mouse = evt.asMouseEvent().position;
@@ -66,7 +65,7 @@ public class Window {
 	}
 	
 	public void update() {
-		time = clock.getElapsedTime();
+		time = clock.restart();
 		if(content!=null){
 			content.update(time);
 			content.updateContent(time);
@@ -94,6 +93,13 @@ public class Window {
 	public Vector2i getMousePos(){
 		return mouse;
 	}
+	
+	public void setSize(Vector2i size){
+		this.height = size.x;
+		this.width = size.y;
+		window.create(new VideoMode(height,width),name,RenderWindow.TITLEBAR|RenderWindow.CLOSE);
+		content.onCreate();
+	}
 
 	public Vector2f getSize() {
 		return new Vector2f(this.window.getSize());
@@ -105,6 +111,10 @@ public class Window {
 		nextContent = c;
 	}
 	
+	public void onClose(){
+		window.close();
+		WindowManager.removeWindow(this);
+	}
 	
 
 }

@@ -71,7 +71,7 @@ public class Button extends Element {
 
 	@Override
 	public void handleEvent(Event evt) {
-
+		if(isDisabled)return;
 	    if(evt.type==Event.Type.MOUSE_BUTTON_PRESSED){
 	        if (evt.asMouseButtonEvent().button== Mouse.Button.LEFT){
 	            event = EventButton.CLICK;
@@ -90,7 +90,7 @@ public class Button extends Element {
 		if(event == EventButton.RELEASED ){
 	        wasClicked=false;
 	        if( Util.intersects(content.getMousePos(),rectangle) && etat == Etat.CLIC ){
-	        	content.actionPerformed(new Action(this));
+	        	actionListener.actionPerformed(new Action(this));
 	            event = EventButton.NONE;
 	            return ;
 	        }
@@ -104,7 +104,7 @@ public class Button extends Element {
 	        return ;
 	    }
 
-	    else if(Util.intersects(content.getMousePos(),rectangle)){
+	    else if(!isDisabled && Util.intersects(content.getMousePos(),rectangle)){
 	        etat=Etat.HOVER;
 	        rectangle.setFillColor(new Color(80,150,190));
 	        return ;
@@ -147,25 +147,20 @@ public class Button extends Element {
 	    text.setPosition(new Vector2f((size.x-Util.getTextWidth(text))/2+pos.x,(size.y-text.getCharacterSize())/2+pos.y));
 	}
 
+	@Override
+	public void disabled() {
+		isDisabled = true;
+		event = EventButton.NONE;
+		wasClicked=false;
+		
+	}
 
-	/*
-	int Button::getTextWidth(sf::Text text)
-	{
-	    int width = 0;
-	    if(text.getString().isEmpty())
-	        return width;
 
-	    width += text.getFont()->getGlyph(text.getString()[0], text.getCharacterSize(), false).advance;
-	    if(text.getString().getSize() == 1)
-	        return width;
+	@Override
+	public void enable() {
+		isDisabled = false;
+		
+	}
 
-	    for(int i = 1; i < text.getString().getSize(); i++)
-	    {
-	        width += text.getFont()->getGlyph(text.getString()[i], text.getCharacterSize(), false).advance;
-	        width += text.getFont()->getKerning(text.getString()[i-1], text.getString()[i], text.getCharacterSize());
-	    }
-
-	    return width;
-	}*/
 
 }
