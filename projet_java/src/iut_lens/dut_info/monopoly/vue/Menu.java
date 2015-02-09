@@ -50,6 +50,9 @@ public class Menu extends Content {
 		if(action.getSource() == optionButton){
 			super.window.changeContent(new OptionContent());
 		}
+		if(action.getSource() == gameButton){
+			super.window.changeContent(new GameCreationContent());
+		}
 		
 	}
 

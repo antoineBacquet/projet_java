@@ -70,11 +70,12 @@ public class Button extends Element {
 	}
 
 	@Override
-	public void handleEvent(Event evt) {
-		if(isDisabled)return;
-	    if(evt.type==Event.Type.MOUSE_BUTTON_PRESSED){
+	public boolean handleEvent(Event evt) {
+		if(isDisabled)return false;
+	    if(evt.type==Event.Type.MOUSE_BUTTON_PRESSED && (Util.intersects(content.getMousePos(),rectangle))){
 	        if (evt.asMouseButtonEvent().button== Mouse.Button.LEFT){
 	            event = EventButton.CLICK;
+	            return true;
 	        }
 	    }
 	    if(evt.type==Event.Type.MOUSE_BUTTON_RELEASED){
@@ -82,6 +83,7 @@ public class Button extends Element {
 	            event = EventButton.RELEASED;
 	        }
 	    }
+	    return false;
 
 	}
 
@@ -97,7 +99,7 @@ public class Button extends Element {
 
 	    }
 
-	    else if(wasClicked ||((event == EventButton.CLICK) && (Util.intersects(content.getMousePos(),rectangle)))){
+	    else if(wasClicked ||((event == EventButton.CLICK)  )){
 	        etat = Etat.CLIC;
 	        wasClicked=true;
 	        event = EventButton.NONE;
@@ -161,6 +163,5 @@ public class Button extends Element {
 		isDisabled = false;
 		
 	}
-
 
 }

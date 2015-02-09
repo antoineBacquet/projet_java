@@ -7,7 +7,7 @@ import org.jsfml.window.event.Event;
 public interface ElementI {
 	
 
-	public void handleEvent(Event evt);
+	public boolean handleEvent(Event evt);
 	
 	public void update(Time tau);
 	

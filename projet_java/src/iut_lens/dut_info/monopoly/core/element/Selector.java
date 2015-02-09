@@ -10,11 +10,10 @@ import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Time;
 import org.jsfml.system.Vector2f;
-import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
-public class Selector extends Element{
+public class Selector extends Element {
 
 	
 	private static Color defaultColor = new Color(56,101,135);
@@ -43,16 +42,47 @@ public class Selector extends Element{
 	
 	private Text[] 						texts;
 	private Text 						actualText;
+	private Text 						titleText = null;
 	
 	public Selector(Content content,String[] option,Vector2f size, Vector2f pos, int actual){
+		this(content,option,size,pos,actual,null);
+	}
+	
+	public Selector(Content content,String[] option,Vector2f size, Vector2f pos, int actual, String title){
 		super(content);
 		this.pos = pos;
 		this.size = size;
 		this.option = option;
 		this.actual = actual;
-		nbrOption = option.length;
+		
 		isDeployed = false;
 		
+		setOption(option);
+		
+		
+		
+		if(title!=null){
+			int textSize = (int) (size.y/2)-4;
+			actualText = new Text(option[actual],FontManager.getFont("arial"),textSize);
+			Util.centerTextRect(actualRect,actualText);
+			actualText.setColor(Color.BLACK);
+			
+			titleText = new Text(title,FontManager.getFont("arial"),textSize);
+			titleText.setColor(Color.BLACK);
+			
+		}
+		else{
+			actualText = new Text(option[actual],FontManager.getFont("arial"),20);
+			actualText.setColor(Color.BLACK);
+		}
+		
+		
+		
+		
+	}
+	
+	public void setOption(String[] option){
+		nbrOption = option.length;
 		
 		rects = new RectangleShape[nbrOption];
 		texts = new Text[nbrOption];
@@ -72,10 +102,6 @@ public class Selector extends Element{
 		actualRect= new RectangleShape(size);
 		actualRect.setFillColor(defaultColor);
 		actualRect.setPosition(pos.x,pos.y);
-		
-		actualText = new Text(option[actual],FontManager.getFont("arial"),20);
-		Util.centerTextRect(actualRect,actualText);
-		actualText.setColor(Color.BLACK);
 	}
 	
 	
@@ -86,16 +112,28 @@ public class Selector extends Element{
 			rects[i].setPosition(pos.x,pos.y+size.y*i+size.y);
 			Util.centerTextRect(rects[i],texts[i]);
 		}
-		actualRect.setPosition(pos.x,pos.y);
-		Util.centerTextRect(actualRect,actualText);
+		
+		if(titleText==null){
+			actualRect.setPosition(pos.x,pos.y);
+			Util.centerTextRect(actualRect,actualText);
+		}
+		else{
+			int textSize = (int) (size.y/2)-4;
+			actualRect.setPosition(pos.x,pos.y);
+			
+			Util.centerTextRect(actualRect,titleText);
+			titleText.setPosition(titleText.getPosition().x,pos.y+1);
+			Util.centerTextRect(actualRect,actualText);
+			actualText.setPosition(actualText.getPosition().x,pos.y+size.y-textSize-5);
+		}
 	}
 	
 	
 
 
 	@Override
-	public void handleEvent(Event evt) {
-		if(isDisabled)return;
+	public boolean handleEvent(Event evt) {
+		if(isDisabled)return false;
 		if(evt.type==Event.Type.MOUSE_MOVED)
 			event = EventSelector.MOVED;
 		
@@ -103,9 +141,11 @@ public class Selector extends Element{
 	    if(evt.type==Event.Type.MOUSE_BUTTON_PRESSED){
 	        if (evt.asMouseButtonEvent().button== Mouse.Button.LEFT){
 	        	event = EventSelector.CLICK;
+	        	return true;
 	        }
 	        
 	    }
+	    return false;
 	    
 	    
 		
@@ -145,6 +185,7 @@ public class Selector extends Element{
 							actual = i;
 							majActual();
 							isDeployed = false;
+							content.actionPerformed(new Action(this));
 						}
 							
 					}
@@ -162,6 +203,8 @@ public class Selector extends Element{
 	public void render(RenderTarget window) {
 		window.draw(actualRect);
 		window.draw(actualText);
+		if(titleText!=null)
+			window.draw(titleText);
 		
 		if(isDeployed){
 			for( int i=0 ; i<nbrOption ; i++){

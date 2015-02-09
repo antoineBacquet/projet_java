@@ -38,5 +38,16 @@ public class Util {
 										(rect.getSize().y-text.getCharacterSize())/2+rect.getPosition().y));
 		
 	}
+	
+	
+	public static String[] cutTable(String[]  tab, int start, int end){
+		if(end<=start)throw new IllegalArgumentException("end plus petit que start");
+		if(end> tab.length || start >tab.length )throw new IllegalArgumentException("plus grand que le tableau");
+		String[]  tmp = new String[end-start];
+		for(int i=start ; i<end ; i++){
+			tmp[i-start] = tab[i];
+		}
+		return tmp;
+	}
 
 }

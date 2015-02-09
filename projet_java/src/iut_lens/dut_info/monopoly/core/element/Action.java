@@ -3,7 +3,7 @@ package iut_lens.dut_info.monopoly.core.element;
 public class Action {
 	
 	
-	public static enum ActionType{CONFIRM,CANCEL}
+	public static enum ActionType{CONFIRM,CANCEL,SELECTOR}
 	
 	private Object source;
 	private ActionType actionType;
