@@ -56,6 +56,10 @@ public class GameCreationContent extends Content{
 			nbJoueurSelector.setOption(Util.cutTable(tabNbJoueur, 0, tabNbJoueur.length - nbBotSelector.getChoix()));
 		}
 		
+		if(action.getSource() == startGameButton){
+			super.window.changeContent(new GameContent(null));
+		}
+		
 	}
 	
 

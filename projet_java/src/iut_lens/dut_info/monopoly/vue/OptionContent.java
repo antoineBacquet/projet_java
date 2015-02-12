@@ -37,7 +37,7 @@ public class OptionContent extends Content implements PopUpOppener{
 	private Vector2f oldRes ;
 	
 	
-	String[] res = {"800:600","1024:600","1400:1050","1600:1200","1920:1080"};
+	String[] res = {"800:600","1024:600","1400:1050","1600:900","1920:1080"};
 	public OptionContent() {
 		super();
 		
