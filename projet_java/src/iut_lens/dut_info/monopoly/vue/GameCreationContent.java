@@ -57,7 +57,8 @@ public class GameCreationContent extends Content{
 		}
 		
 		if(action.getSource() == startGameButton){
-			super.window.changeContent(new GameContent(null));
+			String[] tmp = {"1","2"};
+			super.window.changeContent(new GameContent(tmp));
 		}
 		
 	}

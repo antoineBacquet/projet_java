@@ -2,11 +2,9 @@ package iut_lens.dut_info.monopoly.game;
 
 import iut_lens.dut_info.monopoly.core.Content;
 import iut_lens.dut_info.monopoly.core.TextureManager;
-import iut_lens.dut_info.monopoly.core.element.Action;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderTarget;
-import org.jsfml.graphics.Texture;
 import org.jsfml.system.Time;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
@@ -14,7 +12,7 @@ import org.jsfml.window.event.Event;
 public class ClassiqueBoard extends Board {
 
 	
-	
+	private final int NB_CASE = 40;
 	
 	
 	
@@ -24,7 +22,13 @@ public class ClassiqueBoard extends Board {
 
 	@Override
 	public void createCase() {
-		// TODO Auto-generated method stub
+		int case_height = (int) (size.x*0.13);
+		
+		for(int i=0 ; i<NB_CASE ; i++){
+			
+		}
+		
+		
 
 	}
 

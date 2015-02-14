@@ -2,6 +2,7 @@ package iut_lens.dut_info.monopoly.game;
 
 import iut_lens.dut_info.monopoly.core.Content;
 import iut_lens.dut_info.monopoly.core.SousContent;
+import iut_lens.dut_info.monopoly.game.cases.Case;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RectangleShape;

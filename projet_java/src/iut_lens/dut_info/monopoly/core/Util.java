@@ -39,6 +39,12 @@ public class Util {
 		
 	}
 	
+	public static void centerTextRectInX(RectangleShape rect, Text text) {
+		text.setPosition(new Vector2f(	(rect.getSize().x-Util.getTextWidth(text))/2+rect.getPosition().x,
+										(text.getPosition().y)));
+		
+	}
+	
 	
 	public static String[] cutTable(String[]  tab, int start, int end){
 		if(end<=start)throw new IllegalArgumentException("end plus petit que start");

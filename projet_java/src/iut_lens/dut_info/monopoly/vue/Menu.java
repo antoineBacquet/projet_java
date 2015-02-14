@@ -66,7 +66,7 @@ public class Menu extends Content {
 	//TODO creer un main un peu plus elaborer
 	
 	public static void main(String[] args) {
-		Window w = new Window(600,800,"test temporaire");
+		Window w = new Window(720,1280,"test temporaire");
 		w.create();
 		w.setContent(new Menu());
 		WindowManager.addWindow(w);

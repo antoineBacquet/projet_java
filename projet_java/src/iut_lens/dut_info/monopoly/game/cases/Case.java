@@ -1,6 +1,7 @@
-package iut_lens.dut_info.monopoly.game;
+package iut_lens.dut_info.monopoly.game.cases;
 
 import iut_lens.dut_info.monopoly.core.TextureManager;
+import iut_lens.dut_info.monopoly.game.Player;
 
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.RenderStates;
@@ -24,6 +25,9 @@ public abstract class Case implements Drawable{
 	protected Sprite sprite;
 	
 	private Player owner = null;
+	private Vector2f size;
+	
+	
 	
 	public Case(String textureName) {
 		this.textureName = textureName;	
@@ -35,6 +39,10 @@ public abstract class Case implements Drawable{
 		sprite.setScale(new Vector2f(SIZE_X/texture.getSize().x,SIZE_Y/texture.getSize().y));
 		
 		
+	}
+	
+	public void setSize(Vector2f size){
+		this.size = size;
 	}
 
 	@Override
