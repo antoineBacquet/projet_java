@@ -28,7 +28,7 @@ public class Player implements Drawable{
 	
 	private Text moneyText;
 	
-	private Vector2f size;
+	//private Vector2f size;
 	
 	private Vector2f pos;
 	
@@ -39,7 +39,7 @@ public class Player implements Drawable{
 		this.money = money;
 		this.color = color;
 		
-		this.size = size;
+		//this.size = size;
 		id = ID_COUNT++;
 		pos = new Vector2f(0+3,size.y*id+3);
 		
@@ -70,6 +70,10 @@ public class Player implements Drawable{
 		target.draw(moneyText,state);
 		
 		
+	}
+
+	public Color getColor() {
+		return color;
 	}
 
 }

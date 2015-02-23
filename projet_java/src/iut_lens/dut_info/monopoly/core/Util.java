@@ -56,4 +56,10 @@ public class Util {
 		return tmp;
 	}
 
+
+	public static boolean intersects(Vector2f point, RectangleShape rect) {
+		 return ((point.x>rect.getPosition().x) && (point.x<rect.getPosition().x+rect.getSize().x) && 
+		    		(point.y>rect.getPosition().y) && (point.y<rect.getPosition().y+rect.getSize().y));
+	}
+
 }

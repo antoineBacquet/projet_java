@@ -22,8 +22,6 @@ public class GameCreationContent extends Content{
 	private Selector nbJoueurSelector;
 	private Selector nbBotSelector;
 	
-	private TextField testTextField;
-	
 	private Button cancelButton;
 	private Button startGameButton;
 	
@@ -41,12 +39,12 @@ public class GameCreationContent extends Content{
 		super.addElementNoRender(cancelButton);
 		startGameButton = new Button(this, new Vector2f(200,50), "lancer");
 		super.addElementNoRender(startGameButton);
-		//testTextField = new TextField(this,new Vector2f(200,20),new Vector2f(0,0),"");
-		//super.addElementNoRender(testTextField);
 	}
 	
 	@Override
 	public void actionPerformed(Action action) {
+		
+		
 		if(action.getSource() == nbJoueurSelector){
 			nbBotSelector.setOption(Util.cutTable(tabNbBot, 0, tabNbBot.length - nbJoueurSelector.getChoix()));
 			createTextFieldSpeudo(nbJoueurSelector.getChoix()+1);
@@ -115,6 +113,7 @@ public class GameCreationContent extends Content{
 	public void handleEvent(Event evt) {
 		for(int i=0 ;i<pseudos.length ; i++)
 			pseudos[i].handleEvent(evt);
+		
 		
 	}
 

@@ -9,12 +9,13 @@ import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 
 public abstract class Board extends SousContent{
 	
 	
-	private Case[] cases;
+	protected Case[] cases;
 	
 	private Texture boardTexture;
 	protected Sprite boardSprite;
@@ -39,6 +40,15 @@ public abstract class Board extends SousContent{
 	
 	
 	public abstract void createCase();
+
+
+
+	public void onMouseMove(Vector2i mouse) {
+		Vector2i casePos = new Vector2i((int)(mouse.x-super.pos.x),(int) (mouse.y-super.pos.y));
+		for(Case c:cases)
+			c.onMouseMove(casePos);
+		
+	}
 	
 	
 	

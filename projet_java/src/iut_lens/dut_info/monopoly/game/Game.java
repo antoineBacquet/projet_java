@@ -8,6 +8,7 @@ import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 public class Game {
 	
@@ -73,6 +74,11 @@ public class Game {
 	
 	public Board getBoard(){
 		return board;
+	}
+
+	public void onMouseMove(Vector2i mouse) {
+		board.onMouseMove(mouse);
+		
 	}
 	
 	

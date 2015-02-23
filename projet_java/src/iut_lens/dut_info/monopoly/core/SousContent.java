@@ -20,9 +20,11 @@ public abstract class SousContent {
 	protected RenderTexture render;
 	protected Texture texture;
 	protected Sprite sprite;
+	protected Vector2f pos;
 	
 	public SousContent(Content content, Vector2f size, Vector2f pos){
 		this.size = size;
+		this.pos = pos;
 		
 		render = new RenderTexture();
 		try {

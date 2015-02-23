@@ -44,7 +44,10 @@ public class GameContent extends Content{
 
 	@Override
 	public void handleEvent(Event evt) {
-		// TODO Auto-generated method stub
+
+		if(evt.type == Event.Type.MOUSE_MOVED){
+			game.onMouseMove(evt.asMouseEvent().position);
+		}
 		
 	}
 
