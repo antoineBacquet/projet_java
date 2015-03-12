@@ -1,6 +1,5 @@
 package iut_lens.dut_info.monopoly.core.element;
 
-import iut_lens.dut_info.monopoly.core.Content;
 import iut_lens.dut_info.monopoly.core.FontManager;
 import iut_lens.dut_info.monopoly.core.Util;
 
@@ -13,6 +12,7 @@ import org.jsfml.graphics.Text;
 import org.jsfml.graphics.TextureCreationException;
 import org.jsfml.system.Time;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
@@ -26,6 +26,7 @@ public class TextField extends Element {
 	private static final Color outlineColor = new Color(56,101,135);
 	private static final Color fillColor = new Color(90,150,170);
 	
+	private Vector2i mouse = new Vector2i(0,0);
 	
 	private Vector2f pos;
 	private Vector2f size;
@@ -49,8 +50,8 @@ public class TextField extends Element {
 	
 	
 	
-	public TextField(Content content, Vector2f size, String defaultText) {
-		super(content);
+	public TextField(ActionListener actionListener, Vector2f size, String defaultText) {
+		super(actionListener);
 		pos = new Vector2f(0,0);
 		
 		//rectangle setting
@@ -128,8 +129,10 @@ public class TextField extends Element {
 
 	@Override
 	public boolean handleEvent(Event evt) {
+		if(evt.type == Event.Type.MOUSE_MOVED)mouse = evt.asMouseEvent().position;
+		
 		if(evt.type == Event.Type.MOUSE_BUTTON_PRESSED){
-			if(evt.asMouseButtonEvent().button == Mouse.Button.LEFT && Util.intersects(content.getMousePos(), rect)){
+			if(evt.asMouseButtonEvent().button == Mouse.Button.LEFT && Util.intersects(mouse, rect)){
 				event = EventTextField.CLICK;
 				return true;
 					

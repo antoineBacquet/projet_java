@@ -1,6 +1,5 @@
 package iut_lens.dut_info.monopoly.core.element;
 
-import iut_lens.dut_info.monopoly.core.Content;
 import iut_lens.dut_info.monopoly.core.FontManager;
 import iut_lens.dut_info.monopoly.core.Util;
 
@@ -10,6 +9,7 @@ import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Time;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
@@ -30,12 +30,12 @@ public class Button extends Element {
 
 	private boolean wasClicked;
 	
-	
+	private Vector2i mouse = new Vector2i(0,0);
 
 
 
-	public Button(Content content, Vector2f size, Vector2f pos, String s) {
-		super(content);
+	public Button(ActionListener actionListener, Vector2f size, Vector2f pos, String s) {
+		super(actionListener);
 		this.pos = pos;
 		this.size = size;
 		
@@ -58,8 +58,8 @@ public class Button extends Element {
 	    centerText();
 	}
 	
-	public Button(Content content, Vector2f size, String s) {
-		this(content,size,new Vector2f(0,0),s);
+	public Button(ActionListener actionListener, Vector2f size, String s) {
+		this(actionListener,size,new Vector2f(0,0),s);
 	}
 	
 	public void setPositionRelative(Vector2f windowSize,float posX, float posY){
@@ -72,7 +72,9 @@ public class Button extends Element {
 	@Override
 	public boolean handleEvent(Event evt) {
 		if(isDisabled)return false;
-	    if(evt.type==Event.Type.MOUSE_BUTTON_PRESSED && (Util.intersects(content.getMousePos(),rectangle))){
+		
+		if(evt.type == Event.Type.MOUSE_MOVED)mouse = evt.asMouseEvent().position;
+	    if(evt.type==Event.Type.MOUSE_BUTTON_PRESSED && (Util.intersects(mouse,rectangle))){
 	        if (evt.asMouseButtonEvent().button== Mouse.Button.LEFT){
 	            event = EventButton.CLICK;
 	            return true;
@@ -91,7 +93,7 @@ public class Button extends Element {
 	public void update(Time tau) {
 		if(event == EventButton.RELEASED ){
 	        wasClicked=false;
-	        if( Util.intersects(content.getMousePos(),rectangle) && etat == Etat.CLIC ){
+	        if( Util.intersects(mouse,rectangle) && etat == Etat.CLIC ){
 	        	actionListener.actionPerformed(new Action(this));
 	            event = EventButton.NONE;
 	            return ;
@@ -106,7 +108,7 @@ public class Button extends Element {
 	        return ;
 	    }
 
-	    else if(!isDisabled && Util.intersects(content.getMousePos(),rectangle)){
+	    else if(!isDisabled && Util.intersects(mouse,rectangle)){
 	        etat=Etat.HOVER;
 	        rectangle.setFillColor(new Color(80,150,190));
 	        return ;

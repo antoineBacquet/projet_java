@@ -2,7 +2,8 @@ package iut_lens.dut_info.monopoly.game;
 
 
 
-import iut_lens.dut_info.monopoly.core.Content;
+import iut_lens.dut_info.monopoly.game.cases.Case;
+import iut_lens.dut_info.monopoly.vue.GameContent;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderStates;
@@ -19,7 +20,7 @@ public class Game {
 	
 	private final int START_MONEY = 1000;
 	
-	private Content content;
+	private GameContent content;
 	
 	private String[] playersName;
 	
@@ -31,9 +32,13 @@ public class Game {
 	
 	private Dice[] dices = {new Dice(),new Dice()};
 	
+	private int actualPlayer = 0;
+	
+	private boolean isInTurn;
 	
 	
-	public Game(String[] playersName,Content content) {
+	
+	public Game(String[] playersName,GameContent content) {
 		this.content = content;
 		this.playersName = playersName;		
 	}
@@ -49,7 +54,7 @@ public class Game {
 	
 	
 	public void init(){
-		board = new ClassiqueBoard(content,new Vector2f((float) (content.
+		board = new ClassiqueBoard(content,this,new Vector2f((float) (content.
 				getWindow().getSize().x*(1-X_PERCENT)),(float)content.getWindow().getSize().y),
 				new Vector2f((float) (content.getWindow().getSize().x*X_PERCENT),0));//TODO a bouger dans le constructeur
 		board.createCase();
@@ -59,6 +64,34 @@ public class Game {
 		
 	}
 	
+	
+	public void playTurn(){
+		if(isInTurn)return;
+		isInTurn = true;
+		//on lance les dés
+		this.throwDices();
+		this.gotDouble();
+		
+		//on bouge le joueur
+		Case caseTmp = board.movePlayer(players[actualPlayer],dices[0].getNumber() + dices[1].getNumber());
+		
+		//on regarde l'action de la case actuel
+		content.onFallOnCase(caseTmp.onFallOn());
+		
+	}
+	
+	public void endTurn(){
+		isInTurn = false;
+		if(gotDouble)return;
+		actualPlayer++;
+		actualPlayer%=players.length;
+	}
+	
+	public void gotDouble(){
+		this.gotDouble = dices[0].getNumber() == dices[1].getNumber();
+		
+		
+	}
 	
 	public void throwDices(){
 		dices[0].throwDice();
@@ -79,6 +112,34 @@ public class Game {
 	public void onMouseMove(Vector2i mouse) {
 		board.onMouseMove(mouse);
 		
+	}
+
+	public void onMouseClick() {
+		board.onMouseClick();
+		
+	}
+	
+	
+	//TODO ceci est un test
+	public  void createPopUp(String className){
+		Class<CaseFallOnActionPopUp> test = null;
+		try {
+			test = (Class<CaseFallOnActionPopUp>) Class.forName(className);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			CaseFallOnActionPopUp popUpTmp = test.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public Vector2f getWindowSize() {
+		// TODO Auto-generated method stub
+		return content.getWindow().getSize();
 	}
 	
 	

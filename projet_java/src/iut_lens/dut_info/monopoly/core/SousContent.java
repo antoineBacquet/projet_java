@@ -38,7 +38,7 @@ public abstract class SousContent {
 		sprite.setPosition(pos);
 		
 	}
-	
+
 	public Vector2i getMousePos(){
 		return content.getWindow().getMousePos();
 	}

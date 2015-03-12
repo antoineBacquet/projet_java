@@ -1,9 +1,10 @@
 package iut_lens.dut_info.monopoly.game;
 
-import iut_lens.dut_info.monopoly.core.Content;
 import iut_lens.dut_info.monopoly.core.TextureManager;
 import iut_lens.dut_info.monopoly.game.cases.Case;
 import iut_lens.dut_info.monopoly.game.cases.CaseDebug;
+import iut_lens.dut_info.monopoly.game.cases.Property;
+import iut_lens.dut_info.monopoly.vue.GameContent;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderTarget;
@@ -13,10 +14,10 @@ import org.jsfml.window.event.Event;
 
 public class ClassiqueBoard extends Board {
 
-	private final int NB_CASE = 40;
+	protected final int NB_CASE = 40;
 
-	public ClassiqueBoard(Content content, Vector2f size, Vector2f pos) {
-		super(content, size, pos, TextureManager.getTexture("board"));
+	public ClassiqueBoard(GameContent content, Game game, Vector2f size, Vector2f pos) {
+		super(content, game, size, pos, TextureManager.getTexture("board"),40);
 	}
 
 	@Override
@@ -27,8 +28,10 @@ public class ClassiqueBoard extends Board {
 		cases = new Case[NB_CASE];
 
 		for (int i = 0; i < NB_CASE; i++) {
-			super.cases[i] = new CaseDebug("sprite");
+			super.cases[i] = new CaseDebug(this,"depart");
 		}
+		
+		super.cases[1] = new Property(this,"rigas");
 
 		// gestion de la taille des cases
 		for (int i = 0; i < NB_CASE; i++) {

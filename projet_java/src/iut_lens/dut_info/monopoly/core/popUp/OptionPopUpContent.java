@@ -4,7 +4,6 @@ import iut_lens.dut_info.monopoly.core.Content;
 import iut_lens.dut_info.monopoly.core.FontManager;
 import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.core.element.Action.ActionType;
-import iut_lens.dut_info.monopoly.core.element.ActionDeclencher;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.core.element.Button;
 

@@ -1,6 +1,5 @@
 package iut_lens.dut_info.monopoly.core;
 
-import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.core.element.Element;
 

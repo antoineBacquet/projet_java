@@ -1,6 +1,5 @@
 package iut_lens.dut_info.monopoly.core.element;
 
-import iut_lens.dut_info.monopoly.core.Content;
 import iut_lens.dut_info.monopoly.core.FontManager;
 import iut_lens.dut_info.monopoly.core.Util;
 
@@ -10,6 +9,7 @@ import org.jsfml.graphics.RenderTarget;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Time;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
@@ -44,12 +44,14 @@ public class Selector extends Element {
 	private Text 						actualText;
 	private Text 						titleText = null;
 	
-	public Selector(Content content,String[] option,Vector2f size, Vector2f pos, int actual){
-		this(content,option,size,pos,actual,null);
+	private Vector2i mouse = new Vector2i(0,0);
+	
+	public Selector(ActionListener actionListener,String[] option,Vector2f size, Vector2f pos, int actual){
+		this(actionListener,option,size,pos,actual,null);
 	}
 	
-	public Selector(Content content,String[] option,Vector2f size, Vector2f pos, int actual, String title){
-		super(content);
+	public Selector(ActionListener actionListener,String[] option,Vector2f size, Vector2f pos, int actual, String title){
+		super(actionListener);
 		this.pos = pos;
 		this.size = size;
 		this.option = option;
@@ -134,8 +136,11 @@ public class Selector extends Element {
 	@Override
 	public boolean handleEvent(Event evt) {
 		if(isDisabled)return false;
-		if(evt.type==Event.Type.MOUSE_MOVED)
+		if(evt.type==Event.Type.MOUSE_MOVED){
+			mouse = evt.asMouseEvent().position;
 			event = EventSelector.MOVED;
+		}
+			
 		
 
 	    if(evt.type==Event.Type.MOUSE_BUTTON_PRESSED){
@@ -154,7 +159,7 @@ public class Selector extends Element {
 	@Override
 	public void update(Time tau) {
 		if(event == EventSelector.MOVED){
-			if(Util.intersects(content.getMousePos(), actualRect)){
+			if(Util.intersects(mouse, actualRect)){
 				actualRect.setFillColor(hoverColor);
 			}
 			else{
@@ -162,7 +167,7 @@ public class Selector extends Element {
 			}
 			if(isDeployed){
 				for(RectangleShape r:rects)
-					if(Util.intersects(content.getMousePos(), r)){
+					if(Util.intersects(mouse, r)){
 						r.setFillColor(hoverColor);
 					}
 					else{
@@ -177,22 +182,22 @@ public class Selector extends Element {
 			event = EventSelector.NONE;
 			
 			if(isDeployed){
-				if(Util.intersects(content.getMousePos(), actualRect))
+				if(Util.intersects(mouse, actualRect))
 					isDeployed = false;
 				else{
 					for(int i=0 ; i< rects.length ; i++){
-						if(Util.intersects(content.getMousePos(), rects[i])){
+						if(Util.intersects(mouse, rects[i])){
 							actual = i;
 							majActual();
 							isDeployed = false;
-							content.actionPerformed(new Action(this));
+							actionListener.actionPerformed(new Action(this));
 						}
 							
 					}
 				}
 			}
 			else{
-				if(Util.intersects(content.getMousePos(), actualRect))
+				if(Util.intersects(mouse, actualRect))
 					isDeployed = true;
 			}
 		}

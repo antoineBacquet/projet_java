@@ -34,6 +34,8 @@ public class Player implements Drawable{
 	
 	private RectangleShape rect;
 	
+	private int positionOnBoard = 0;
+	
 	public Player(String name, int money, Color color, Vector2f size ) {
 		this.name = name;
 		this.money = money;
@@ -74,6 +76,15 @@ public class Player implements Drawable{
 
 	public Color getColor() {
 		return color;
+	}
+
+	public int getPosition() {
+		return positionOnBoard;
+	}
+
+	public void setPosition(int positionOnBoard) {
+		this.positionOnBoard = positionOnBoard;
+		
 	}
 
 }

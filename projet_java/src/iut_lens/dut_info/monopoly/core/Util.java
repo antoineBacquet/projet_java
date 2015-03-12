@@ -7,6 +7,8 @@ import org.jsfml.system.Vector2i;
 
 public class Util {
 	
+	
+	
 	public static boolean intersects(Vector2i point, RectangleShape rect){
 
 	    return ((point.x>rect.getPosition().x) && (point.x<rect.getPosition().x+rect.getSize().x) && 
