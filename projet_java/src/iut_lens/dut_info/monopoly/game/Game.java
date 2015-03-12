@@ -13,7 +13,7 @@ import org.jsfml.system.Vector2i;
 
 public class Game {
 	
-	private final static float X_PERCENT = 0.3f;
+	private final static float X_PERCENT = 0.2f;
 	
 	
 	private final Color[] colors  = {Color.BLUE,Color.GREEN,Color.MAGENTA,Color.RED,Color.YELLOW,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK};//TODO ajouter d'autre couleurs
@@ -68,7 +68,7 @@ public class Game {
 	public void playTurn(){
 		if(isInTurn)return;
 		isInTurn = true;
-		//on lance les dés
+		//on lance les dï¿½s
 		this.throwDices();
 		this.gotDouble();
 		

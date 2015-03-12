@@ -29,6 +29,7 @@ public class Menu extends Content {
 
 	@Override
 	public void handleEvent(Event evt) {
+		
 		// TODO Auto-generated method stub
 
 	}
