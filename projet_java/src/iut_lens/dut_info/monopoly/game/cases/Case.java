@@ -4,7 +4,7 @@ import iut_lens.dut_info.monopoly.core.Util;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.Board;
 import iut_lens.dut_info.monopoly.game.CaseFallOnActionPopUp;
-import iut_lens.dut_info.monopoly.game.Player;
+import iut_lens.dut_info.monopoly.game.Game;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Drawable;
@@ -14,8 +14,8 @@ import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
-//TODO changer pour faire en sorte qu'une case posséde carte (ou pas)
-//TODO implémenter toute les sous classes #hf
+//TODO changer pour faire en sorte qu'une case possï¿½de carte (ou pas)
+//TODO implï¿½menter toute les sous classes #hf
 public abstract class Case implements Drawable,ActionListener{
 	
 	
@@ -93,7 +93,7 @@ public abstract class Case implements Drawable,ActionListener{
 		
 	}
 
-	public abstract CaseFallOnActionPopUp onFallOn();
+	public abstract CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2f windowSize, Vector2f pos, Game game);
 
 	public String getName() {
 		return name;

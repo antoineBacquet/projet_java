@@ -92,6 +92,7 @@ public class GameContent extends Content{
 
 	public void onFallOnCase(CaseFallOnActionPopUp popUp) {
 		this.popUp = popUp;
+		System.out.println("salut");
 		
 	}
 

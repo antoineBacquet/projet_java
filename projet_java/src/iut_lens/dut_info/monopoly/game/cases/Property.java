@@ -5,6 +5,7 @@ import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.Board;
 import iut_lens.dut_info.monopoly.game.CaseFallOnActionPopUp;
+import iut_lens.dut_info.monopoly.game.Game;
 import iut_lens.dut_info.monopoly.game.Player;
 
 import org.jsfml.system.Vector2f;
@@ -29,8 +30,10 @@ public class Property extends Case implements ActionListener{
 	
 
 	@Override
-	public CaseFallOnActionPopUp onFallOn() {
-		if(owner == null)return new FallOnFreeProperty(this,new Vector2f(0.5f,0.3f),board.getGame().getWindowSize(),new Vector2f(400,600),this);
+	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2f windowSize, Vector2f pos, Game game) {
+		// if(owner == null)return new FallOnFreeProperty(this,new Vector2f(0.5f,0.3f),board.getGame().getWindowSize(),new Vector2f(400,600),this);
+		if(owner == null)return new FallOnFreeProperty(this, pos, windowSize, size, this, game);
+		
 		return null;
 	}
 

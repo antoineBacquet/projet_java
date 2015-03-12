@@ -2,6 +2,7 @@ package iut_lens.dut_info.monopoly.game.cases;
 
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.CaseFallOnActionPopUp;
+import iut_lens.dut_info.monopoly.game.Game;
 
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
@@ -12,8 +13,8 @@ import org.jsfml.window.event.Event;
 public class FallOnNoActionCase extends CaseFallOnActionPopUp {
 
 	public FallOnNoActionCase(ActionListener actionListener, Vector2f pos,
-			Vector2f windowSize, Vector2f size, Case caseSource) {
-		super(actionListener, pos, windowSize, size, caseSource);
+			Vector2f windowSize, Vector2f size, Case caseSource, Game game) {
+		super(actionListener, pos, windowSize, size, caseSource, game);
 		// TODO Auto-generated constructor stub
 	}
 

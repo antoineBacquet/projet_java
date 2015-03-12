@@ -73,10 +73,10 @@ public class Game {
 		this.gotDouble();
 		
 		//on bouge le joueur
-		Case caseTmp = board.movePlayer(players[actualPlayer],dices[0].getNumber() + dices[1].getNumber());
+		Case caseTmp = board.movePlayer(players[actualPlayer],1); // TODO a remettre apres dices[0].getNumber() + dices[1].getNumber()
 		
 		//on regarde l'action de la case actuel
-		content.onFallOnCase(caseTmp.onFallOn());
+		content.onFallOnCase(caseTmp.onFallOn(new Vector2f(400,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
 		
 	}
 	
