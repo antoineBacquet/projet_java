@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Quentin/workspace/jsfml-test-Dec02_2013/jsfml.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Quentin/git/Monopoly/projet_java/projet_java/plugin/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Quentin/git/Monopoly/projet_java/projet_java/plugin/jsfml-test-Dec02_2013/jsfml.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

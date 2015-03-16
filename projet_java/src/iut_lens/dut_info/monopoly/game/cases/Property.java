@@ -49,7 +49,7 @@ public class Property extends Case implements ActionListener{
 			System.out.println("Carte : " + nom);
 			
 
-			String achat = (String) jsonObject.get("prixAchat");
+			long achat = (long) jsonObject.get("prixAchat");
 			System.out.println("La casse coute : " + achat);
 
 
