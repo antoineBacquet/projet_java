@@ -18,7 +18,7 @@ public class Game {
 	
 	private final Color[] colors  = {Color.BLUE,Color.GREEN,Color.MAGENTA,Color.RED,Color.YELLOW,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK};//TODO ajouter d'autre couleurs
 	
-	private final int START_MONEY = 1000;
+	private final int START_MONEY = 15000000;
 	
 	private GameContent content;
 	
