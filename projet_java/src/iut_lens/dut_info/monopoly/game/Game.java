@@ -141,6 +141,12 @@ public class Game {
 		// TODO Auto-generated method stub
 		return content.getWindow().getSize();
 	}
+
+	//TODO a coder
+	public void moveActualPlayer(int caseId, boolean isPayDay) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 
