@@ -22,8 +22,10 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 		super(actionListener, pos, windowSize, size, caseSource, game);
 
 
-		buyButton = new Button(this,new Vector2f(200,50),new Vector2f(0,0),"acheter");
-		notBuyButton = new Button(this,new Vector2f(200,50),new Vector2f(0,150),"ne pas acheter");
+		buyButton = new Button(this,new Vector2f(150,50),new Vector2f(0,0),"acheter");
+		buyButton.setPositionRelativeToRectangle(super.rectangle, 0.2f, 0.9f);
+		notBuyButton = new Button(this,new Vector2f(150,50),new Vector2f(0,150),"ne pas acheter");
+		notBuyButton.setPositionRelativeToRectangle(super.rectangle, 0.8f, 0.9f);
 	}
 
 	@Override
@@ -52,7 +54,15 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 
 	@Override
 	public void actionPerformed(Action action) {
-		// TODO Auto-generated method stub
+		if(action.getSource() == this.buyButton){
+			game.buyProperty((Property)super.caseSource);
+			actionListener.actionPerformed(new Action(this));
+			System.out.println("lel");
+		}
+		if(action.getSource() == this.notBuyButton){
+			actionListener.actionPerformed(new Action(this));
+		}
+		
 		
 	}
 

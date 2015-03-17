@@ -2,7 +2,9 @@ package iut_lens.dut_info.monopoly.game;
 
 
 
+import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.cases.Case;
+import iut_lens.dut_info.monopoly.game.cases.Property;
 import iut_lens.dut_info.monopoly.vue.GameContent;
 
 import org.jsfml.graphics.Color;
@@ -119,21 +121,13 @@ public class Game {
 		
 	}
 	
-	
-	//TODO ceci est un test
-	public  void createPopUp(String className){
-		Class<CaseFallOnActionPopUp> test = null;
-		try {
-			test = (Class<CaseFallOnActionPopUp>) Class.forName(className);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+	public void buyProperty(Property property){
+		if(players[actualPlayer].getMoney()<property.getPrice()){
+			//TODO coder quand il n'y a pas assez d'argent
 		}
-		try {
-			CaseFallOnActionPopUp popUpTmp = test.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		else{
+			property.setOwner(players[actualPlayer]);
+			players[actualPlayer].paye(property.getPrice());
 		}
 	}
 
@@ -145,7 +139,11 @@ public class Game {
 	//TODO a coder
 	public void moveActualPlayer(int caseId, boolean isPayDay) {
 		// TODO Auto-generated method stub
+	}
 		
+
+	public ActionListener getListener() {
+		return content;
 	}
 	
 	

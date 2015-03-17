@@ -83,8 +83,8 @@ public abstract class Case implements Drawable,ActionListener{
 	
 	
 	//TODO a coder
-	private void setColor(Color color) {
-		
+	protected void setColor(Color color) {
+		this.rect.setOutlineColor(color);
 		
 	}
 	//TODO a coder

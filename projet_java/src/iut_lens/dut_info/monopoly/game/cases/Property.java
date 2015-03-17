@@ -1,6 +1,5 @@
 package iut_lens.dut_info.monopoly.game.cases;
 
-import iut_lens.dut_info.monopoly.core.JSONLoader;
 import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.Board;
@@ -12,11 +11,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.jsfml.system.Vector2f;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.jsfml.system.Vector2f;
 
 public class Property extends Case implements ActionListener{
 	
@@ -24,23 +23,22 @@ public class Property extends Case implements ActionListener{
 	
 	private Property[] otherProperty;
 	
-	private CaseFallOnActionPopUp popUp = null;
+	private static final String filePath = "Projet/Proprietes/BleuFonce/";// TODO A changer
 	
-	private PropertyData data;
+	private int price;
 
 	public Property(Board board, String name) {
 		super(board, name);
-
-		//data = JSONLoader.loadPropertyData(name);
-		// TODO A changer
+		loadData();
 		
-		final String filePath = "Projet/Proprietes/BleuFonce/notreDameDeParis.js";
 		
-		// final String filePath = "Projet/Proprietes/"+name;
 		
+	}
+	
+	private void loadData(){
 		try {
 			// read the json file
-			FileReader reader = new FileReader(filePath);
+			FileReader reader = new FileReader(filePath+name+".js");
 
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
@@ -80,9 +78,6 @@ public class Property extends Case implements ActionListener{
 		} catch (NullPointerException ex) {
 			ex.printStackTrace();
 		}
-		
-		
-		
 	}
 	
 	
@@ -90,14 +85,25 @@ public class Property extends Case implements ActionListener{
 	@Override
 	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2f windowSize, Vector2f pos, Game game) {
 		// if(owner == null)return new FallOnFreeProperty(this,new Vector2f(0.5f,0.3f),board.getGame().getWindowSize(),new Vector2f(400,600),this);
-		if(owner == null)return new FallOnFreeProperty(this, pos, windowSize, size, this, game);
+		if(owner == null)return new FallOnFreeProperty(game.getListener(), pos, windowSize, size, this, game);
 		
-		return null;
+		return new OnFallOnOwnedProperty(game.getListener(), pos, windowSize, size, this, game);
 	}
 
 	@Override
 	public void actionPerformed(Action action) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public int getPrice() {
+		return this.price;
+	}
+
+	//TODO changer la couleur de la case et tout et tout
+	public void setOwner(Player player) {
+		this.owner = player;
+		this.setColor(player.getColor());
 		
 	}
 
