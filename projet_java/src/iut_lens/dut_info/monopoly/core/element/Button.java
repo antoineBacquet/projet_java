@@ -68,6 +68,13 @@ public class Button extends Element {
 		rectangle.setPosition(pos);
 		centerText();
 	}
+	
+	public void setPositionRelativeToRectangle(RectangleShape rect,float posX, float posY){
+		pos = new Vector2f(rect.getPosition().x + rect.getSize().x*posX - (this.size.x/2), rect.getPosition().y + rect.getSize().y*posY - (this.size.y/2));
+		
+		rectangle.setPosition(pos);
+		centerText();
+	}
 
 	@Override
 	public boolean handleEvent(Event evt) {

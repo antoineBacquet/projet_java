@@ -87,4 +87,13 @@ public class Player implements Drawable{
 		
 	}
 
+	public int getMoney() {
+		return this.money;
+	}
+
+	public void paye(int price) {
+		this.money-=price;
+		
+	}
+
 }

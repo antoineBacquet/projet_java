@@ -31,7 +31,7 @@ public class ClassiqueBoard extends Board {
 			super.cases[i] = new CaseDebug(this,"depart");
 		}
 		
-		super.cases[1] = new Property(this,"depart");
+		super.cases[1] = new Property(this,"notreDameDeParis");
 
 		// gestion de la taille des cases
 		for (int i = 0; i < NB_CASE; i++) {
