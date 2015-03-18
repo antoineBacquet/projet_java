@@ -145,6 +145,22 @@ public class Game {
 	public ActionListener getListener() {
 		return content;
 	}
+
+	public void earnActualPlayer(int money) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void withdrawMoneyActualPlayer(int money) {
+		// TODO Auto-generated method stub
+		// verifie que le joueur peut donner
+		
+	}
+
+	public void eachGiveActualPlayer(int money) {
+		// TODO Auto-generated method stub
+		// verifie que le joueur peut donner
+	}
 	
 	
 

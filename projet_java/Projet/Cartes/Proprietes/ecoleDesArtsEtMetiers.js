@@ -1,4 +1,5 @@
 {
+	"couleur": "Jaune"
 	"nom": "Ecole des Arts et Metiers",
 	"prixAchat": 2600000,
 	"loyer":[220000,1100000,3300000,8000000,9750000,11500000],

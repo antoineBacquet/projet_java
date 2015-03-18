@@ -1,0 +1,18 @@
+{
+"Vous allez visiter les monuments de Paris. Rendez-vous à la Tour Eiffel."
+"Avancez jusqu'à la case départ."
+"Vous allez à un concert. Rendez-vous au Palais Omnisport de Paris Bercy. Si vous passez par la case départ recevez 2 millions €."
+"Vous faites construire une piscine sur le toit de votre appartement à Montmartre payer 200 000 €."
+"Vous êtes libéré de prison. (Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée ou vendue"
+"Vous gagnez au loto. Recevez 1 millions €."
+"Payer pour frais de scolarité en école privée 1.5 millions €."
+"Rendez-vous à la gare Saint-Lazare. Si vous passez par la case départ recevez 2 millions €."
+"La circulation  à Paris est difficile! Reculez de 3 cases."
+"Vous n'avez pas payé votre taxe d'habitation. Allez en prison. Avancez tout droit en prison. Ne passez pas par la case départ. Ne touchez pas 2 millions €."
+"Vous faites redécorer vos propriétés par les meilleurs designers. Pour chaque appartement payer 250 000 €. Pour chaque hôtel payer 1 millions €."
+"Vous avez une amende car vous utilisez votre téléphone portable en conduisant. Payez 150 000 €."
+"Vous vendez vos actions à profit. Recevez 1.5 millions €."
+"La taxe d'habitation augmente. Payez 400 000 € par appartement et 1.15 millions par hôtel."
+"Rendez-vous au Pont Alexandre III. Si vous passez par la case départ recevez 2 millions €."
+"Vous organisez un tournoi de football au Stade de France. La vente des tickets vous rapporte 500 000 €."
+}

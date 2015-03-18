@@ -23,16 +23,14 @@ public class Property extends Case implements ActionListener{
 	
 	private Property[] otherProperty;
 	
-	private static final String filePath = "Projet/Proprietes/BleuFonce/";// TODO A changer
+	private static final String filePath = "Projet/Cartes/Proprietes/";
 	
 	private int price;
 
 	public Property(Board board, String name) {
 		super(board, name);
 		loadData();
-		
-		
-		
+	
 	}
 	
 	private void loadData(){
@@ -43,6 +41,9 @@ public class Property extends Case implements ActionListener{
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
 
+			String couleur = (String) jsonObject.get("couleur");
+			System.out.println("Couleur : " + couleur);
+			
 			String nom = (String) jsonObject.get("nom");
 			System.out.println("Carte : " + nom);
 			

@@ -9,7 +9,7 @@ import org.jsfml.graphics.Texture;
 public class TextureManager {
 	
 	private static HashMap<String,Texture> textures = new HashMap<String,Texture>();
-	private final static String texturePath = "src/texture/";
+	private final static String texturePath = "src/texture/";// texture des cases ?
 
 
 	public static Texture getTexture(String textureName){

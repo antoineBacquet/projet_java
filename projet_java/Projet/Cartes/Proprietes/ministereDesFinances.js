@@ -1,4 +1,5 @@
 {
+	"couleur": "Vert"
 	"nom": "Ministère des Finances",
 	"prixAchat": 3200000,
 	"loyer":[280000,1500000,4500000,10000000,12000000,14000000],

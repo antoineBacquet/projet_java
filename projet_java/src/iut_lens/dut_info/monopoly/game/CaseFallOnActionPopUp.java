@@ -27,7 +27,7 @@ public abstract class CaseFallOnActionPopUp extends ActionPopUp {
 		this.game= game;
 		
 		
-		Texture texture = TextureManager.getTexture("case_"+caseSource.getName());
+		Texture texture = TextureManager.getTexture("photosPlateau/"+caseSource.getName());
 		
 		
 		this.sprite = new Sprite();
