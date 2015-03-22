@@ -22,7 +22,7 @@ public class TextureManager {
 	    Texture texture = new Texture();
 	    
 	    try {
-	    	texture.loadFromFile(Paths.get(texturePath + textureName + ".jpg"));
+	    	texture.loadFromFile(Paths.get(texturePath + textureName + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
