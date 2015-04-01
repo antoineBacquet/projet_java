@@ -19,9 +19,9 @@ import org.jsfml.system.Vector2i;
 public abstract class Case implements Drawable,ActionListener{
 	
 	
+	
+	
 	private static enum State{NORMAL,HOVER};
-	private final int SIZE_X = 80; 
-	private final int SIZE_Y = 200;
 	
 	private State state = State.NORMAL;
 	
@@ -30,10 +30,14 @@ public abstract class Case implements Drawable,ActionListener{
 	
 	protected final String name;
 	
-	private Vector2f size;
+	//private Vector2f size;
 	
 	private RectangleShape rect;
 	protected Board board;
+
+	private Vector2f pos;
+
+	private Vector2f size;
 	
 	
 	
@@ -82,21 +86,30 @@ public abstract class Case implements Drawable,ActionListener{
 	}
 	
 	
-	//TODO a coder
+	
 	protected void setColor(Color color) {
 		this.rect.setOutlineColor(color);
 		
 	}
 	//TODO a coder
 	public void setPos(Vector2f pos) {
+		this.pos = pos;
 		rect.setPosition(new Vector2f(pos.x+2,pos.y+2));
 		
 	}
 
-	public abstract CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2f windowSize, Vector2f pos, Game game);
+	public abstract CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2i windowSize, Vector2f pos, Game game);
 
 	public String getName() {
 		return name;
+	}
+
+	public Vector2f getPos() {
+		return pos;
+	}
+
+	public Vector2f getSize() {
+		return this.size;
 	}
 	
 

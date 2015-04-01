@@ -1,5 +1,6 @@
 package iut_lens.dut_info.monopoly.game.cases;
 
+import iut_lens.dut_info.monopoly.core.Util;
 import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.Board;
@@ -10,8 +11,10 @@ import iut_lens.dut_info.monopoly.game.Player;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -27,12 +30,23 @@ public class Property extends Case implements ActionListener{
 	
 	private int price;
 
+	private int prixAppartement;
+
+	private int prixHotel;
+	
+	private int nbHouses = 0;
+
+	private List<Long> loyer;
+
+	private int hypothequeTerrain;
+
 	public Property(Board board, String name) {
 		super(board, name);
 		loadData();
 	
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void loadData(){
 		try {
 			// read the json file
@@ -42,32 +56,24 @@ public class Property extends Case implements ActionListener{
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
 
 			String couleur = (String) jsonObject.get("couleur");
-			System.out.println("Couleur : " + couleur);
+			//System.out.println("Couleur : " + couleur);
 			
 			String nom = (String) jsonObject.get("nom");
-			System.out.println("Carte : " + nom);
+			//System.out.println("Carte : " + nom);
 			
 
-			long achat = (long) jsonObject.get("prixAchat");
-			System.out.println("La casse coute : " + achat);
+			this.price = Util.longToInt((long) jsonObject.get("prixAchat"));
 
 
-			JSONArray loyer= (JSONArray) jsonObject.get("loyer");
-			
-			for(int i=0; i<loyer.size(); i++){
-				System.out.println("le loyer pour " + i + " batiment est de : "+loyer.get(i));
-			}
+			this.loyer = ((JSONArray) jsonObject.get("loyer"));
 			
 			
 			// get a number from the JSON object
-			long pa =  (long) jsonObject.get("prixAppartement");
-			System.out.println("Le prix de l'appartement est de : " + pa);
+			this.prixAppartement =  Util.longToInt((long) jsonObject.get("prixAppartement"));
 			
-			long ph =  (long) jsonObject.get("prixHotel");
-			System.out.println("Le prix de l'hotel est de : " + ph);
+			this.prixHotel =  Util.longToInt((long) jsonObject.get("prixHotel"));
 			
-			long ht =  (long) jsonObject.get("hypothequeTerrain");
-			System.out.println("L'hypotheque du terrain est de : " + ht);
+			this.hypothequeTerrain =  Util.longToInt((long) jsonObject.get("hypothequeTerrain"));
 
 			
 		} catch (FileNotFoundException ex) {
@@ -84,11 +90,14 @@ public class Property extends Case implements ActionListener{
 	
 
 	@Override
-	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2f windowSize, Vector2f pos, Game game) {
-		// if(owner == null)return new FallOnFreeProperty(this,new Vector2f(0.5f,0.3f),board.getGame().getWindowSize(),new Vector2f(400,600),this);
+	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2i windowSize, Vector2f pos, Game game) {
 		if(owner == null)return new FallOnFreeProperty(game.getListener(), pos, windowSize, size, this, game);
 		
 		return new OnFallOnOwnedProperty(game.getListener(), pos, windowSize, size, this, game);
+	}
+	
+	public int getRent(){
+		return  Util.longToInt(this.loyer.get(nbHouses));
 	}
 
 	@Override
@@ -98,7 +107,7 @@ public class Property extends Case implements ActionListener{
 	}
 
 	public int getPrice() {
-		return this.price;
+		return (int)this.price;
 	}
 
 	//TODO changer la couleur de la case et tout et tout
@@ -106,6 +115,10 @@ public class Property extends Case implements ActionListener{
 		this.owner = player;
 		this.setColor(player.getColor());
 		
+	}
+	
+	public Player getOwner(){
+		return owner;
 	}
 
 }

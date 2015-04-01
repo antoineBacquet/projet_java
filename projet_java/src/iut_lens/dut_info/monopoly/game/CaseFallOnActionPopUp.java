@@ -1,14 +1,18 @@
 package iut_lens.dut_info.monopoly.game;
 
+import iut_lens.dut_info.monopoly.core.FontManager;
 import iut_lens.dut_info.monopoly.core.TextureManager;
+import iut_lens.dut_info.monopoly.core.Util;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.cases.Case;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.Sprite;
+import org.jsfml.graphics.Text;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 public abstract class CaseFallOnActionPopUp extends ActionPopUp {
 	
@@ -19,9 +23,11 @@ public abstract class CaseFallOnActionPopUp extends ActionPopUp {
 	protected RectangleShape rectangle;
 	
 	protected Game game;
+	
+	protected Text text;
 
 	public CaseFallOnActionPopUp(ActionListener actionListener, Vector2f pos,
-			Vector2f windowSize, Vector2f size, Case caseSource, Game game) {
+			Vector2i windowSize, Vector2f size, Case caseSource, Game game, String message) {
 		super(actionListener, windowSize, size);
 		this.caseSource = caseSource;
 		this.game= game;
@@ -42,7 +48,12 @@ public abstract class CaseFallOnActionPopUp extends ActionPopUp {
 		rectangle.setOutlineColor(Color.BLACK);
 		rectangle.setOutlineThickness(5);
 		
-		sprite.setPosition(new Vector2f(rectangle.getPosition().x+rectangle.getSize().x*pos.x-texture.getSize().x*scale/2,rectangle.getPosition().y+10));
+		sprite.setPosition(new Vector2f(rectangle.getPosition().x+rectangle.getSize().x*pos.x-texture.getSize().x*scale/2,rectangle.getPosition().y+50));
+		
+		
+		text = new Text(message,FontManager.getFont("arial"),30);
+		text.setPosition(new Vector2f(0,rectangle.getPosition().y+10));
+		Util.centerTextRectInX(rectangle, text);
 		
 		
 	}

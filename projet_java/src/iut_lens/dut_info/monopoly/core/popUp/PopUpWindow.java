@@ -7,7 +7,7 @@ public class PopUpWindow extends Window {
 	private PopUpOppener popUpOppener;
 
 	public PopUpWindow(int width, int height, String name,PopUpOppener popUpOppener) {
-		super(width, height, name);
+		super(null);
 		this.popUpOppener = popUpOppener;
 	}
 	

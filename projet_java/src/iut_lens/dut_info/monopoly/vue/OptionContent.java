@@ -1,6 +1,17 @@
 package iut_lens.dut_info.monopoly.vue;
 
 
+import iut_lens.dut_info.monopoly.core.Content;
+import iut_lens.dut_info.monopoly.core.Window;
+import iut_lens.dut_info.monopoly.core.WindowOption;
+import iut_lens.dut_info.monopoly.core.element.Action;
+import iut_lens.dut_info.monopoly.core.element.Action.ActionType;
+import iut_lens.dut_info.monopoly.core.element.Button;
+import iut_lens.dut_info.monopoly.core.element.Selector;
+import iut_lens.dut_info.monopoly.core.popUp.OptionPopUpContent;
+import iut_lens.dut_info.monopoly.core.popUp.PopUpOppener;
+import iut_lens.dut_info.monopoly.core.popUp.PopUpWindow;
+
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderTarget;
@@ -11,15 +22,6 @@ import org.jsfml.system.Time;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
-
-import iut_lens.dut_info.monopoly.core.Content;
-import iut_lens.dut_info.monopoly.core.element.Action;
-import iut_lens.dut_info.monopoly.core.element.Action.ActionType;
-import iut_lens.dut_info.monopoly.core.element.Button;
-import iut_lens.dut_info.monopoly.core.element.Selector;
-import iut_lens.dut_info.monopoly.core.popUp.OptionPopUpContent;
-import iut_lens.dut_info.monopoly.core.popUp.PopUpOppener;
-import iut_lens.dut_info.monopoly.core.popUp.PopUpWindow;
 
 public class OptionContent extends Content implements PopUpOppener{
 
@@ -38,8 +40,8 @@ public class OptionContent extends Content implements PopUpOppener{
 	
 	
 	String[] res = {"1024:600","1366:768","1600:900","1920:1080"};
-	public OptionContent() {
-		super();
+	public OptionContent(WindowOption windowOption, Window window) {
+		super(windowOption, window);
 		
 		resSelector = new Selector(this,res,new Vector2f(200,50),new Vector2f(0,0),0);
 		super.addElementNoRender(resSelector);
@@ -64,11 +66,11 @@ public class OptionContent extends Content implements PopUpOppener{
 	@Override
 	public void actionPerformed(Action action) {
 		if(action.getSource() == cancelButton)
-			super.window.changeContent(new Menu());
+			super.getWindow().changeContent(new Menu(super.getWindowOption(), super.getWindow()));
 		else if(action.getSource() == saveButton){
 			oldRes = super.getWindow().getSize();//TODO a changer avec les option de fenetre
 			String[] tmp = res[resSelector.getChoix()].split(":");
-			super.window.setSize(new Vector2i(Integer.parseInt(tmp[0]),Integer.parseInt(tmp[1])));
+			super.getWindow().setSize(new Vector2i(Integer.parseInt(tmp[0]),Integer.parseInt(tmp[1])));
 			popUp = new OptionPopUpContent(this);
 			disableAll();
 		}
@@ -77,7 +79,7 @@ public class OptionContent extends Content implements PopUpOppener{
 			popUp = null;
 			enableAll();
 			if(action.getActionType() == ActionType.CANCEL){
-				super.window.setSize(new Vector2i(oldRes));
+				super.getWindow().setSize(new Vector2i(oldRes));
 			}
 		}
 		
@@ -113,9 +115,9 @@ public class OptionContent extends Content implements PopUpOppener{
 
 	@Override
 	protected void onCreate() {
-		resSelector.setPositionRelative(super.window.getSize(),0.5f, 0.1f);
-		saveButton.setPositionRelative(super.window.getSize(), 0.2f, 0.8f);
-		cancelButton.setPositionRelative(super.window.getSize(), 0.8f, 0.8f);
+		resSelector.setPositionRelative(super.getWindowOption().getSize(),0.5f, 0.1f);
+		saveButton.setPositionRelative(super.getWindowOption().getSize(), 0.2f, 0.8f);
+		cancelButton.setPositionRelative(super.getWindowOption().getSize(), 0.8f, 0.8f);
 	}
 	@Override
 	public void onPopClose(PopUpWindow popUpWindow) {

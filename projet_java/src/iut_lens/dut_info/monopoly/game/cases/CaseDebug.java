@@ -6,6 +6,7 @@ import iut_lens.dut_info.monopoly.game.CaseFallOnActionPopUp;
 import iut_lens.dut_info.monopoly.game.Game;
 
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 public class CaseDebug extends Case{
 
@@ -14,7 +15,7 @@ public class CaseDebug extends Case{
 	}
 
 	@Override
-	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2f windowSize, Vector2f pos, Game game) {
+	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2i windowSize, Vector2f pos, Game game) {
 		// TODO Auto-generated method stub
 		return null;
 	}

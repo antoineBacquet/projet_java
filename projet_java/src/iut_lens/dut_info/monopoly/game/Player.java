@@ -28,8 +28,6 @@ public class Player implements Drawable{
 	
 	private Text moneyText;
 	
-	//private Vector2f size;
-	
 	private Vector2f pos;
 	
 	private RectangleShape rect;
@@ -69,10 +67,10 @@ public class Player implements Drawable{
 	public void draw(RenderTarget target, RenderStates state) {
 		target.draw(rect,state);
 		target.draw(nameText,state);
-		target.draw(moneyText,state);
-		
-		
+		target.draw(moneyText,state);		
 	}
+	
+	
 
 	public Color getColor() {
 		return color;
@@ -93,7 +91,26 @@ public class Player implements Drawable{
 
 	public void paye(int price) {
 		this.money-=price;
+		this.majMoney();
 		
 	}
+	
+	public void giveMonney(int money) {
+		this.money+=money;
+		this.majMoney();
+		
+	}
+	
+	private void majMoney(){
+		this.moneyText.setString("argent:"+money);
+		Util.centerTextRectInX(rect, moneyText);
+	}
+
+	public int getId() {
+		return id;
+		
+	}
+
+	
 
 }

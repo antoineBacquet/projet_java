@@ -3,9 +3,13 @@ package iut_lens.dut_info.monopoly.game;
 
 
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
+import iut_lens.dut_info.monopoly.game.card.Card;
+import iut_lens.dut_info.monopoly.game.card.CardBuilder;
 import iut_lens.dut_info.monopoly.game.cases.Case;
 import iut_lens.dut_info.monopoly.game.cases.Property;
 import iut_lens.dut_info.monopoly.vue.GameContent;
+
+import java.util.List;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderStates;
@@ -15,7 +19,7 @@ import org.jsfml.system.Vector2i;
 
 public class Game {
 	
-	private final static float X_PERCENT = 0.2f;
+	private final static float X_PERCENT = 0.3f;
 	
 	
 	private final Color[] colors  = {Color.BLUE,Color.GREEN,Color.MAGENTA,Color.RED,Color.YELLOW,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK};//TODO ajouter d'autre couleurs
@@ -38,6 +42,9 @@ public class Game {
 	
 	private boolean isInTurn;
 	
+	private List<Card> chancesCard;
+	
+	private List<Card> caissesCard;
 	
 	
 	public Game(String[] playersName,GameContent content) {
@@ -55,31 +62,41 @@ public class Game {
 	}
 	
 	
-	public void init(){
+	public void init(CardBuilder chanceBuilder, CardBuilder caissesBuilder){
 		board = new ClassiqueBoard(content,this,new Vector2f((float) (content.
 				getWindow().getSize().x*(1-X_PERCENT)),(float)content.getWindow().getSize().y),
 				new Vector2f((float) (content.getWindow().getSize().x*X_PERCENT),0));//TODO a bouger dans le constructeur
 		board.createCase();
 		
+		//TODO a decomenter une fois que ce sera coder
+		//chancesCard = chanceBuilder.getCards();
+		//caissesCard = caissesBuilder.getCards();
 
 		createPlayer(playersName);
 		
+		onPlayerChange();
 	}
 	
 	
 	public void playTurn(){
 		if(isInTurn)return;
 		isInTurn = true;
+		
+		
 		//on lance les d�s
 		this.throwDices();
 		this.gotDouble();
 		
 		//on bouge le joueur
-		Case caseTmp = board.movePlayer(players[actualPlayer],1); // TODO a remettre apres dices[0].getNumber() + dices[1].getNumber()
-		
+		Case caseTmp = board.movePlayer(players[actualPlayer],2); // TODO a remettre apres dices[0].getNumber() + dices[1].getNumber()
+		content.onPlayerMoved();
 		//on regarde l'action de la case actuel
 		content.onFallOnCase(caseTmp.onFallOn(new Vector2f(400,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
 		
+	}
+	
+	public void onPlayerChange(){
+		content.setPlayerPlaying();
 	}
 	
 	public void endTurn(){
@@ -87,6 +104,7 @@ public class Game {
 		if(gotDouble)return;
 		actualPlayer++;
 		actualPlayer%=players.length;
+		onPlayerChange();
 	}
 	
 	public void gotDouble(){
@@ -131,9 +149,9 @@ public class Game {
 		}
 	}
 
-	public Vector2f getWindowSize() {
+	public Vector2i getWindowSize() {
 		// TODO Auto-generated method stub
-		return content.getWindow().getSize();
+		return content.getWindowOption().getSize();
 	}
 
 	//TODO a coder
@@ -160,6 +178,28 @@ public class Game {
 	public void eachGiveActualPlayer(int money) {
 		// TODO Auto-generated method stub
 		// verifie que le joueur peut donner
+	}
+
+	public void actualPlayerRentPlayer(Player owner, int rent) {
+		if(players[actualPlayer].getMoney()<rent){
+			//TODO coder quand il n'y a pas assez d'argent
+		}
+		else{
+			players[actualPlayer].paye(rent);
+			owner.giveMonney(rent);
+			endTurn();
+		}
+		
+		
+	}
+	
+	public Player[] getPlayers(){
+		return this.players;
+	}
+
+	public Player getActualPlayer() {
+		return players[actualPlayer];
+		
 	}
 	
 	

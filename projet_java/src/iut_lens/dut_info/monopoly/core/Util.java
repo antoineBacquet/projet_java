@@ -63,5 +63,13 @@ public class Util {
 		 return ((point.x>rect.getPosition().x) && (point.x<rect.getPosition().x+rect.getSize().x) && 
 		    		(point.y>rect.getPosition().y) && (point.y<rect.getPosition().y+rect.getSize().y));
 	}
+	
+	public static int longToInt(long l) {
+	    if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+	        throw new IllegalArgumentException
+	            (l + " cannot be cast to int without changing its value.");
+	    }
+	    return (int) l;
+	}
 
 }

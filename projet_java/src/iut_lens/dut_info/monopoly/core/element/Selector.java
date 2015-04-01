@@ -107,8 +107,8 @@ public class Selector extends Element {
 	}
 	
 	
-	public void setPositionRelative(Vector2f windowSize,float posX, float posY){
-		pos = new Vector2f(windowSize.x*posX - (this.size.x/2), windowSize.y*posY - (this.size.y/2));
+	public void setPositionRelative(Vector2i vector2i,float posX, float posY){
+		pos = new Vector2f(vector2i.x*posX - (this.size.x/2), vector2i.y*posY - (this.size.y/2));
 		
 		for (int i=0 ; i<nbrOption ; i++){
 			rects[i].setPosition(pos.x,pos.y+size.y*i+size.y);

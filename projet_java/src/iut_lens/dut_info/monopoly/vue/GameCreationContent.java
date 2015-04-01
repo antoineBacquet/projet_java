@@ -1,13 +1,18 @@
 package iut_lens.dut_info.monopoly.vue;
 
 import iut_lens.dut_info.monopoly.core.Content;
+import iut_lens.dut_info.monopoly.core.TextureManager;
 import iut_lens.dut_info.monopoly.core.Util;
+import iut_lens.dut_info.monopoly.core.Window;
+import iut_lens.dut_info.monopoly.core.WindowOption;
 import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.core.element.Button;
 import iut_lens.dut_info.monopoly.core.element.Selector;
 import iut_lens.dut_info.monopoly.core.element.TextField;
 
 import org.jsfml.graphics.RenderTarget;
+import org.jsfml.graphics.Sprite;
+import org.jsfml.graphics.Texture;
 import org.jsfml.system.Time;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
@@ -25,9 +30,14 @@ public class GameCreationContent extends Content{
 	private Button cancelButton;
 	private Button startGameButton;
 	
+	private Texture backgroundTexture;
+	private Sprite backgroundSprite;
+	
 	private TextField[] pseudos =  new TextField[0];
-	public GameCreationContent() {
-		super();
+	
+	
+	public GameCreationContent(WindowOption windowOption, Window window) {
+		super(windowOption, window);
 		
 		nbJoueurSelector = new Selector(this,tabNbJoueur,new Vector2f(200,40),new Vector2f(0,0),0,"nb joueurs");
 		super.addElementNoRender(nbJoueurSelector);
@@ -39,6 +49,15 @@ public class GameCreationContent extends Content{
 		super.addElementNoRender(cancelButton);
 		startGameButton = new Button(this, new Vector2f(200,50), "lancer");
 		super.addElementNoRender(startGameButton);
+		
+		this.backgroundTexture = TextureManager.getTexture("bg");
+		this.backgroundSprite = new Sprite(backgroundTexture);
+		
+		createTextFieldSpeudo(1);
+		
+		
+		
+		
 	}
 	
 	@Override
@@ -55,9 +74,25 @@ public class GameCreationContent extends Content{
 		}
 		
 		if(action.getSource() == startGameButton){
-			String[] tmp = {"1","2"};
-			super.window.changeContent(new GameContent(tmp));
+			createGame();
+			
 		}
+		if(action.getSource() == this.cancelButton)
+			super.getWindow().changeContent(new Menu(super.getWindowOption(),super.getWindow()));
+		
+	}
+	
+	
+	private void createGame(){
+		String[] pseudosTmp = new String[pseudos.length];
+		for(int i=0 ; i<pseudosTmp.length ; i++){
+			pseudosTmp[i] = pseudos[i].getString();
+		}
+		super.getWindow().changeContent(new GameContent(pseudosTmp,super.getWindowOption(), super.getWindow()));
+		
+		
+		
+		
 		
 	}
 	
@@ -97,16 +132,21 @@ public class GameCreationContent extends Content{
 	
 	public void setPseudoPos(){
 		for(int i=0 ;i<pseudos.length ; i++)
-			pseudos[i].setPositionRelative(super.window.getSize(), 0.2f, (float)(0.2+(i*0.05)));
+			pseudos[i].setPositionRelative(super.getWindowOption().getSize(), 0.2f, (float)(0.2+(i*0.05)));
 	}
 
 	@Override
 	protected void onCreate() {
-		nbJoueurSelector.setPositionRelative(super.window.getSize(), 0.2f, 0.1f);
-		nbBotSelector.setPositionRelative(super.window.getSize(), 0.8f, 0.1f);
+		nbJoueurSelector.setPositionRelative(super.getWindowOption().getSize(), 0.2f, 0.1f);
+		nbBotSelector.setPositionRelative(super.getWindowOption().getSize(), 0.8f, 0.1f);
 		
-		cancelButton.setPositionRelative(super.window.getSize(), 0.2f, 0.9f);
-		startGameButton.setPositionRelative(super.window.getSize(), 0.8f, 0.9f);
+		cancelButton.setPositionRelative(super.getWindowOption().getSize(), 0.2f, 0.9f);
+		startGameButton.setPositionRelative(super.getWindowOption().getSize(), 0.8f, 0.9f);
+		
+		Vector2f scale = new Vector2f(((float)super.getWindowOption().getSize().x)/backgroundTexture.getSize().x,	
+				((float)super.getWindowOption().getSize().y)/backgroundTexture.getSize().y);
+		System.out.println("Menu :: onCreate() :: scale : " + scale);
+		backgroundSprite.setScale(scale);
 	}
 
 	@Override
@@ -126,6 +166,8 @@ public class GameCreationContent extends Content{
 
 	@Override
 	public void render(RenderTarget target) {
+		target.draw(backgroundSprite);
+		
 		for(int i=0 ;i<pseudos.length ; i++)
 			pseudos[i].render(target);
 		

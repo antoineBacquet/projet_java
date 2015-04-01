@@ -13,24 +13,29 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 
-public class OnFallOnOwnedProperty extends CaseFallOnActionPopUp implements ActionListener {
+public class FallOnChance extends CaseFallOnActionPopUp implements ActionListener {
+
 	
 	private Button okButton;
 	
-	private Property property;
+	
+	public FallOnChance(ActionListener actionListener, Vector2f pos,
+			Vector2i windowSize, Vector2f size, Case caseSource, Game game) {
+		super(actionListener, pos, windowSize, size, caseSource, game, "vous tirez une carte chance");
+		
+		System.out.println("FallOnChance :: " + size);
+		
+		okButton = new Button(this,new Vector2f(150,50),"ok");
+		okButton.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.8f);
 
-	public OnFallOnOwnedProperty(ActionListener actionListener, Vector2f pos,
-			Vector2i windowSize, Vector2f size, Property caseSource, Game game) {
-		super(actionListener, pos, windowSize, size, caseSource, game, null);
-		okButton = new Button(this,new Vector2f(150,50),new Vector2f(0,0),"ok");
-		this.property = caseSource;
+		
 	}
 
 	@Override
 	public void draw(RenderTarget target, RenderStates states) {
 		target.draw(rectangle, states);
 		target.draw(super.sprite, states);
-		
+		target.draw(super.text,states);
 		okButton.render(target);
 		
 	}
@@ -49,11 +54,13 @@ public class OnFallOnOwnedProperty extends CaseFallOnActionPopUp implements Acti
 
 	@Override
 	public void actionPerformed(Action action) {
-		if(action.getSource() == okButton){	
-			game.actualPlayerRentPlayer(property.getOwner(), property.getRent());
-			
-			super.actionListener.actionPerformed(new Action(this));
+		if(action.getSource() == okButton){
+			actionListener.actionPerformed(new Action(this));
 		}
+			
+		
 	}
+
+	
 
 }
