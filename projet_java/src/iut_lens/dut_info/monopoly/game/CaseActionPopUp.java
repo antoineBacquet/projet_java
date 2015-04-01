@@ -13,6 +13,7 @@ import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Time;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 
 public class CaseActionPopUp extends ActionPopUp implements ActionListener {
@@ -26,9 +27,9 @@ public class CaseActionPopUp extends ActionPopUp implements ActionListener {
 	
 	private Button buttonOk;
 
-	public CaseActionPopUp(String textureName,ActionListener actionListener,Vector2f relativePos, Vector2f windowSize, Vector2f size) {
-		super(actionListener,windowSize,size);
-		Vector2f pos = new Vector2f(windowSize.x*0.5f,windowSize.y*0.2f);
+	public CaseActionPopUp(String textureName,ActionListener actionListener,Vector2f relativePos, Vector2i vector2i, Vector2f size) {
+		super(actionListener,vector2i,size);
+		Vector2f pos = new Vector2f(vector2i.x*0.5f,vector2i.y*0.2f);
 		this.texture = TextureManager.getTexture(textureName);
 		
 		this.sprite = new Sprite();
@@ -49,7 +50,7 @@ public class CaseActionPopUp extends ActionPopUp implements ActionListener {
 		
 		
 		buttonOk = new Button(this,new Vector2f(200,50),"OK");
-		buttonOk.setPositionRelative(windowSize, 0.5f, 0.7f);
+		buttonOk.setPositionRelative(vector2i, 0.5f, 0.7f);
 		
 		
 	}

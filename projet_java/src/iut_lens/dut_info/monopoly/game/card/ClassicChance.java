@@ -16,7 +16,7 @@ public class ClassicChance implements CardBuilder{
 		cards.add(new Card(new EarnStrategy(0))); //Recevoir de l'argent
 		cards.add(new Card(new GiveMoneyStrategy(0))); //Donner de l'argent
 		cards.add(new Card(new eachGiveMoneyStrategy(0))); //recevoir de tout le monde de l'argent
-		return null;
+		return cards;
 	}
 
 }

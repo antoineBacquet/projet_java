@@ -10,6 +10,7 @@ import iut_lens.dut_info.monopoly.game.CaseFallOnActionPopUp;
 import iut_lens.dut_info.monopoly.game.Game;
 
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -73,7 +74,7 @@ public class Station extends Case {
 	}
 
 	@Override
-	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2f windowSize,
+	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2i windowSize,
 			Vector2f pos, Game game) {
 		// TODO Auto-generated method stub
 		return null;

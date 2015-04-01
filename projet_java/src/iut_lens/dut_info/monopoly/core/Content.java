@@ -12,23 +12,21 @@ import org.jsfml.window.event.Event;
 
 public abstract class Content implements ActionListener{
 	
-	protected Window window;
-	
+	private Window window;
 	private LinkedList<Element> elements;
 	private LinkedList<Element> elementsNoRender;
 	
-	public Content(){
+	private WindowOption windowOption;
+	
+	public Content(WindowOption windowOption,Window window){
+		this.window = window;
+		this.windowOption = windowOption;
 		elements = new LinkedList<Element>();
 		elementsNoRender = new LinkedList<Element>();
 	}
 	
-	public void setWindow(Window window){
-		this.window = window;
-		onCreate();
-	}
-	
 	public Vector2i getMousePos(){
-		return window.getMousePos();
+		return windowOption.getMousePos();
 	}
 	
 	public void addElement(Element e){
@@ -67,8 +65,13 @@ public abstract class Content implements ActionListener{
 	
 	public abstract void render(RenderTarget target);
 
+	public WindowOption getWindowOption() {
+		return windowOption;
+	}
+
 	public Window getWindow() {
-		return window;
+		// TODO Auto-generated method stub
+		return this.window;
 	}
 	
 }

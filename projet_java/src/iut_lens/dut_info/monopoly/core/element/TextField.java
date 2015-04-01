@@ -19,7 +19,7 @@ import org.jsfml.window.event.Event;
 public class TextField extends Element {
 	
 	
-	enum EventTextField{NONE,CLICK,RELEASED};
+	enum EventTextField{NONE,CLICK_ON,CLICK_OUT,RELEASED};
 	
 	EventTextField event = EventTextField.NONE;
 	
@@ -94,8 +94,8 @@ public class TextField extends Element {
 	
 	
 	
-	public void setPositionRelative(Vector2f windowSize,float posX, float posY){
-		pos = new Vector2f(windowSize.x*posX - (this.size.x/2), windowSize.y*posY - (this.size.y/2));
+	public void setPositionRelative(Vector2i vector2i, float posX, float posY){
+		pos = new Vector2f(vector2i.x*posX - (this.size.x/2), vector2i.y*posY - (this.size.y/2));
 		
 		this.text.setPosition(2,((size.y-textSize)/2-3));
 
@@ -132,11 +132,17 @@ public class TextField extends Element {
 		if(evt.type == Event.Type.MOUSE_MOVED)mouse = evt.asMouseEvent().position;
 		
 		if(evt.type == Event.Type.MOUSE_BUTTON_PRESSED){
-			if(evt.asMouseButtonEvent().button == Mouse.Button.LEFT && Util.intersects(mouse, rect)){
-				event = EventTextField.CLICK;
-				return true;
+			if(evt.asMouseButtonEvent().button == Mouse.Button.LEFT)
+				if(	Util.intersects(mouse, rect)){
+					event = EventTextField.CLICK_ON;
+					return true;
+				}
+				else{
+					event = EventTextField.CLICK_OUT;
+					return false;
+				}
 					
-			}
+			
 		}
 		if(isFocus && evt.type == Event.Type.TEXT_ENTERED){
 			
@@ -156,11 +162,14 @@ public class TextField extends Element {
 
 	@Override
 	public void update(Time tau) {
-		if(event == EventTextField.CLICK){
+		if(event == EventTextField.CLICK_ON){
 			event = EventTextField.NONE;
 			isFocus = true;
 		}
-		
+		if(event == EventTextField.CLICK_OUT){
+			event = EventTextField.NONE;
+			isFocus = false;
+		}
 		
 		curseurTime = Time.add(tau, curseurTime);
 		if(curseurTime.asMilliseconds()>500){

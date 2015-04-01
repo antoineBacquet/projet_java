@@ -62,7 +62,7 @@ public class Button extends Element {
 		this(actionListener,size,new Vector2f(0,0),s);
 	}
 	
-	public void setPositionRelative(Vector2f windowSize,float posX, float posY){
+	public void setPositionRelative(Vector2i windowSize,float posX, float posY){
 		pos = new Vector2f(windowSize.x*posX - (this.size.x/2), windowSize.y*posY - (this.size.y/2));
 		
 		rectangle.setPosition(pos);

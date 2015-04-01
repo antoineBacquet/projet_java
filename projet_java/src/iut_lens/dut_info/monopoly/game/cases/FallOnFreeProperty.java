@@ -10,6 +10,7 @@ import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Time;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 
 public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionListener {
@@ -18,8 +19,8 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 	private Button notBuyButton;
 
 	public FallOnFreeProperty(ActionListener actionListener, Vector2f pos,
-			Vector2f windowSize, Vector2f size, Property caseSource, Game game) {
-		super(actionListener, pos, windowSize, size, caseSource, game);
+			Vector2i windowSize, Vector2f size, Property caseSource, Game game) {
+		super(actionListener, pos, windowSize, size, caseSource, game, "voulez-vous acheter?");
 
 
 		buyButton = new Button(this,new Vector2f(150,50),new Vector2f(0,0),"acheter");
@@ -32,6 +33,7 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 	public void draw(RenderTarget target, RenderStates states) {
 		target.draw(rectangle, states);
 		target.draw(super.sprite, states);
+		target.draw(super.text,states);
 		buyButton.render(target);
 		notBuyButton.render(target);
 
@@ -39,7 +41,6 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 
 	@Override
 	public boolean handleEvent(Event evt) {
-		// TODO Auto-generated method stub
 		buyButton.handleEvent(evt);
 		notBuyButton.handleEvent(evt);
 		return false;
@@ -47,7 +48,6 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 
 	@Override
 	public void update(Time tau) {
-		// TODO Auto-generated method stub
 		buyButton.update(tau);
 		notBuyButton.update(tau);
 	}
@@ -57,7 +57,6 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 		if(action.getSource() == this.buyButton){
 			game.buyProperty((Property)super.caseSource);
 			actionListener.actionPerformed(new Action(this));
-			System.out.println("lel");
 		}
 		if(action.getSource() == this.notBuyButton){
 			actionListener.actionPerformed(new Action(this));

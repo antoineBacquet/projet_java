@@ -69,4 +69,12 @@ public abstract class Board extends SousContent {
 		return game;
 	}
 
+	public Vector2f getCasePos(int i) {
+		return cases[i].getPos();
+	}
+
+	public Vector2f getCaseSize(int i) {
+		return cases[i].getSize();
+	}
+
 }
