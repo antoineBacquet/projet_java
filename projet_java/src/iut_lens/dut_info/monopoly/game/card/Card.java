@@ -14,14 +14,23 @@ public class Card {
 
 	private String texturePath;
 
+	private String message;
+
 	public Card(CardStrategy onDrawStrat, String texturePath, Game game) {
 		this.game = game;
 		this.onDrawStrat = onDrawStrat;
 		this.texturePath = texturePath;
 	}
 
+	public Card(CardStrategy onDrawStrat, String texturePath, String message, Game game) {
+		this.game = game;
+		this.onDrawStrat = onDrawStrat;
+		this.texturePath = texturePath;
+		this.message = message;
+	}
+	
 	public CardActionPopUp onDraw(ActionListener actionListener, Vector2f pos,Vector2i windowSize,Vector2f size) {
-		return new CardActionPopUp(actionListener, pos, windowSize, size, this.texturePath, "", game, this);
+		return new CardActionPopUp(actionListener, pos, windowSize, size, this.texturePath, message, game, this);
 
 	}
 

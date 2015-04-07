@@ -72,8 +72,8 @@ public class Game {
 		board.createCase();
 		
 		//TODO a decomenter une fois que ce sera coder
-		//chancesCard = chanceBuilder.getCards();
-		//caissesCard = caissesBuilder.getCards();
+		//chancesCard = chanceBuilder.getCards(this);
+		//caissesCard = caissesBuilder.getCards(this);
 
 		createPlayer(playersName);
 		for(int i=0 ; i<players.length ; i++)
