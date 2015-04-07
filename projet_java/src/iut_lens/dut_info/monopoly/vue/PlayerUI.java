@@ -29,7 +29,7 @@ public class PlayerUI extends ContentPart {
 		nameText.setColor(color);
 		
 		
-		moneyText = new Text("argent:"+money,FontManager.getFont("arial"));
+		moneyText = new Text("Argents : "+money,FontManager.getFont("arial"));
 		moneyText.setColor(color);
 		
 		//System.out.println("PlayerUI :: PlayerUI :: size : " + size + " pos : " + pos);

@@ -49,7 +49,7 @@ public class GameContent extends Content{
 		
 		this.nbPlayers = players.length;
 		
-		diceButton = new Button(this,new Vector2f(200,50),"lancer");
+		diceButton = new Button(this,new Vector2f(200,50),"Lancer");
 		super.addElementNoRender(diceButton);
 		
 		createPlayerUI(players);
