@@ -25,10 +25,10 @@ public class Menu extends Content {
 	public Menu(WindowOption windowOption, Window window){
 		super( windowOption,  window);
 		
-		gameButton = new Button(this,new Vector2f(200,50),"game");
+		gameButton = new Button(this,new Vector2f(200,50),"Jouer");
 		addElement(gameButton);
 		
-		optionButton = new Button(this,new Vector2f(200,50),"option");
+		optionButton = new Button(this,new Vector2f(200,50),"Option");
 		addElement(optionButton);
 		
 

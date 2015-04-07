@@ -39,15 +39,15 @@ public class GameCreationContent extends Content{
 	public GameCreationContent(WindowOption windowOption, Window window) {
 		super(windowOption, window);
 		
-		nbJoueurSelector = new Selector(this,tabNbJoueur,new Vector2f(200,40),new Vector2f(0,0),0,"nb joueurs");
+		nbJoueurSelector = new Selector(this,tabNbJoueur,new Vector2f(200,40),new Vector2f(0,0),0,"Nombre de joueurs");
 		super.addElementNoRender(nbJoueurSelector);
 		
-		nbBotSelector = new Selector(this,tabNbBot,new Vector2f(200,40),new Vector2f(0,0),0,"nb bot");
+		nbBotSelector = new Selector(this,tabNbBot,new Vector2f(200,40),new Vector2f(0,0),0,"Nombre de bots");
 		super.addElementNoRender(nbBotSelector);
 		
-		cancelButton = new Button(this, new Vector2f(200,50), "retour");
+		cancelButton = new Button(this, new Vector2f(200,50), "Retour");
 		super.addElementNoRender(cancelButton);
-		startGameButton = new Button(this, new Vector2f(200,50), "lancer");
+		startGameButton = new Button(this, new Vector2f(200,50), "Lancer");
 		super.addElementNoRender(startGameButton);
 		
 		this.backgroundTexture = TextureManager.getTexture("bg");

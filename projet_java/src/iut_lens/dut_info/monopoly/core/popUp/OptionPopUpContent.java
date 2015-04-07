@@ -28,11 +28,11 @@ public class OptionPopUpContent implements ActionListener{
 	
 	public OptionPopUpContent(Content content) {
 		this.content = content;
-		confirme = new Button(content, new Vector2f(100,40), "confirmer");
+		confirme = new Button(content, new Vector2f(100,40), "Confirmer");
 		confirme.setPositionRelative(content.getWindowOption().getSize(), 0.4f, 0.6f);
 		confirme.setActionListener(this);
 		
-		cancel = new Button(content, new Vector2f(100,40), "annuler");
+		cancel = new Button(content, new Vector2f(100,40), "Annuler");
 		cancel.setPositionRelative(content.getWindowOption().getSize(), 0.6f, 0.6f);
 		cancel.setActionListener(this);
 		
