@@ -32,7 +32,7 @@ public class PlayerUI extends ContentPart {
 		moneyText = new Text("argent:"+money,FontManager.getFont("arial"));
 		moneyText.setColor(color);
 		
-		System.out.println("PlayerUI :: PlayerUI :: size : " + size + " pos : " + pos);
+		//System.out.println("PlayerUI :: PlayerUI :: size : " + size + " pos : " + pos);
 	}
 
 
@@ -83,6 +83,13 @@ public class PlayerUI extends ContentPart {
 
 	public void setFillColor() {
 		rect.setFillColor(new Color(100,100,100));
+		
+	}
+
+
+	public void majMoney(float money) {
+		moneyText.setString("argent:"+((int)money));
+		
 		
 	}
 

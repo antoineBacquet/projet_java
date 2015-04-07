@@ -20,11 +20,14 @@ import org.jsfml.system.Vector2i;
 public class Game {
 	
 	private final static float X_PERCENT = 0.3f;
+
+
+	private static final int PAYDAY = 2_000_000;
 	
 	
 	private final Color[] colors  = {Color.BLUE,Color.GREEN,Color.MAGENTA,Color.RED,Color.YELLOW,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK};//TODO ajouter d'autre couleurs
 	
-	private final int START_MONEY = 15000000;
+	private final int START_MONEY = 1_500_000;
 	
 	private GameContent content;
 	
@@ -73,6 +76,9 @@ public class Game {
 		//caissesCard = caissesBuilder.getCards();
 
 		createPlayer(playersName);
+		for(int i=0 ; i<players.length ; i++)
+			content.majPlayerMoney(i);
+		
 		
 		onPlayerChange();
 	}
@@ -84,11 +90,13 @@ public class Game {
 		
 		
 		//on lance les d�s
-		this.throwDices();
+		int diceNumber = this.throwDices();
 		this.gotDouble();
 		
+		diceNumber = 1;
+		
 		//on bouge le joueur
-		Case caseTmp = board.movePlayer(players[actualPlayer],2); // TODO a remettre apres dices[0].getNumber() + dices[1].getNumber()
+		Case caseTmp = board.movePlayer(players[actualPlayer],diceNumber); // TODO a remettre apres dices[0].getNumber() + dices[1].getNumber()
 		content.onPlayerMoved();
 		//on regarde l'action de la case actuel
 		content.onFallOnCase(caseTmp.onFallOn(new Vector2f(400,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
@@ -113,9 +121,10 @@ public class Game {
 		
 	}
 	
-	public void throwDices(){
+	public int throwDices(){
 		dices[0].throwDice();
 		dices[1].throwDice();
+		return dices[0].getNumber() + dices[1].getNumber(); 
 	}
 	
 	
@@ -146,17 +155,22 @@ public class Game {
 		else{
 			property.setOwner(players[actualPlayer]);
 			players[actualPlayer].paye(property.getPrice());
+			content.majPlayerMoney(actualPlayer);
+			endTurn();
 		}
 	}
 
 	public Vector2i getWindowSize() {
-		// TODO Auto-generated method stub
 		return content.getWindowOption().getSize();
 	}
 
 	//TODO a coder
 	public void moveActualPlayer(int caseId, boolean isPayDay) {
-		// TODO Auto-generated method stub
+		int playerPos = players[actualPlayer].getPosition();
+		
+		if(isPayDay && playerPos+caseId>board.getNbCase()){
+			players[actualPlayer].giveMonney(PAYDAY);
+		}
 	}
 		
 
@@ -190,6 +204,10 @@ public class Game {
 			endTurn();
 		}
 		
+		
+	}
+	
+	public void comunityChest(){
 		
 	}
 	

@@ -6,8 +6,8 @@ import java.io.IOException;
 
 import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.game.Board;
-import iut_lens.dut_info.monopoly.game.CaseFallOnActionPopUp;
 import iut_lens.dut_info.monopoly.game.Game;
+import iut_lens.dut_info.monopoly.game.cases.action.CaseFallOnActionPopUp;
 
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;

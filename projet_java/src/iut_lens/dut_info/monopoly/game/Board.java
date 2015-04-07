@@ -77,4 +77,8 @@ public abstract class Board extends SousContent {
 		return cases[i].getSize();
 	}
 
+	public int getNbCase() {
+		return NB_CASE;
+	}
+
 }

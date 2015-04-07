@@ -7,8 +7,8 @@ import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.core.element.Button;
 import iut_lens.dut_info.monopoly.game.ActionPopUp;
 import iut_lens.dut_info.monopoly.game.CaseActionPopUp;
-import iut_lens.dut_info.monopoly.game.CaseFallOnActionPopUp;
 import iut_lens.dut_info.monopoly.game.Game;
+import iut_lens.dut_info.monopoly.game.cases.action.CaseFallOnActionPopUp;
 
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
@@ -98,9 +98,6 @@ public class GameContent extends Content{
 		for(int i=0 ; i<nbPlayers ; i++){
 			playersUI[i] = new PlayerUI(super.getWindowOption().getSize(), size, new Vector2f(0 , size.y*i),colors[i],playersName[i],1000);
 		}
-		
-		
-		
 	}
 
 	@Override
@@ -190,6 +187,10 @@ public class GameContent extends Content{
 		}
 		playersUI[game.getActualPlayer().getId()].setFillColor();
 		
+	}
+	
+	public void majPlayerMoney(int idPlayer){
+		playersUI[idPlayer].majMoney(game.getPlayers()[idPlayer].getMoney());
 	}
 
 }
