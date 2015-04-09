@@ -4,7 +4,7 @@ import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.core.element.Button;
 import iut_lens.dut_info.monopoly.game.Game;
-import iut_lens.dut_info.monopoly.game.cases.Buyable;
+import iut_lens.dut_info.monopoly.game.cases.Case;
 
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.graphics.RenderTarget;
@@ -13,24 +13,28 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 
-public class OnFallOnOwnedProperty extends CaseFallOnActionPopUp implements ActionListener {
+public class FallOnCommunityChest extends CaseFallOnActionPopUp implements ActionListener {
+
+	
 	
 	private Button okButton;
 	
-	private Buyable property;
-
-	public OnFallOnOwnedProperty(ActionListener actionListener, Vector2f pos,
-			Vector2i windowSize, Vector2f size, Buyable caseSource, Game game) {
-		super(actionListener, pos, windowSize, size, caseSource, game, "Vous devez payer un loyer");
-		okButton = new Button(this,new Vector2f(150,50),new Vector2f(0,0),"ok");
+	
+	public FallOnCommunityChest(ActionListener actionListener, Vector2f pos,
+			Vector2i windowSize, Vector2f size, Case caseSource, Game game) {
+		super(actionListener, pos, windowSize, size, caseSource, game, "Vous tirez une carte caisse de communauté");
+		
+		okButton = new Button(this,new Vector2f(150,50),"ok");
 		okButton.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.8f);
-		this.property = caseSource;
+
+		
 	}
 
 	@Override
 	public void draw(RenderTarget target, RenderStates states) {
-		super.renderFlou(target, states);
-		
+		target.draw(rectangle, states);
+		target.draw(super.sprite, states);
+		target.draw(super.text,states);
 		okButton.render(target);
 		
 	}
@@ -49,10 +53,12 @@ public class OnFallOnOwnedProperty extends CaseFallOnActionPopUp implements Acti
 
 	@Override
 	public void actionPerformed(Action action) {
-		if(action.getSource() == okButton){	
-			game.actualPlayerRentPlayer(property.getOwner(), property.getRent());			
-			super.actionListener.actionPerformed(new Action(this));
+		if(action.getSource() == okButton){
+			actionListener.actionPerformed(new Action(this));
+			game.drawComunityChest();
 		}
+			
+		
 	}
 
 }

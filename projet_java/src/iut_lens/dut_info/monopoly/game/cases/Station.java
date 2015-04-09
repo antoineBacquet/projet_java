@@ -3,11 +3,16 @@ package iut_lens.dut_info.monopoly.game.cases;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
+import iut_lens.dut_info.monopoly.core.Util;
 import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.game.Board;
 import iut_lens.dut_info.monopoly.game.Game;
+import iut_lens.dut_info.monopoly.game.Player;
 import iut_lens.dut_info.monopoly.game.cases.action.CaseFallOnActionPopUp;
+import iut_lens.dut_info.monopoly.game.cases.action.FallOnFreeProperty;
+import iut_lens.dut_info.monopoly.game.cases.action.OnFallOnOwnedProperty;
 
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -16,10 +21,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class Station extends Case {
+public class Station extends Buyable{
 	
 	private static final String filePath = "Projet/Cartes/Gare/";
+	
+	private int price;
 
+	private List<Long> loyer;
+
+	private int hypothequeTerrain;
+	
 	public Station(Board board, String name) {
 		super(board, name);
 		loadData();
@@ -37,21 +48,21 @@ public class Station extends Case {
 
 			
 			String nom = (String) jsonObject.get("nom");
-			System.out.println("Carte : " + nom);
+			//System.out.println("Carte : " + nom);
 			
 
-			long achat = (long) jsonObject.get("prixAchat");
-			System.out.println("La casse coute : " + achat);
+			price = Util.longToInt((long) jsonObject.get("prixAchat"));
+			//System.out.println("La casse coute : " + achat);
 
 
-			JSONArray loyer= (JSONArray) jsonObject.get("loyer");
+			loyer = (JSONArray) jsonObject.get("loyer");
 			
 			for(int i=0; i<loyer.size(); i++){
-				System.out.println("le loyer pour " + i + " gare est de : "+loyer.get(i));
+				//System.out.println("le loyer pour " + i + " gare est de : "+loyer.get(i));
 			}
 			
-			long ht =  (long) jsonObject.get("valeurHypotheque");
-			System.out.println("L'hypotheque du terrain est de : " + ht);
+			hypothequeTerrain =  Util.longToInt((long) jsonObject.get("valeurHypotheque"));
+			//System.out.println("L'hypotheque du terrain est de : " + ht);
 
 			
 		} catch (FileNotFoundException ex) {
@@ -65,19 +76,29 @@ public class Station extends Case {
 		}
 	}
 	
-	
+	public int getRent(){
+		return  Util.longToInt(this.loyer.get(0));
+	}
 
 	@Override
 	public void actionPerformed(Action action) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
-	@Override
-	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2i windowSize,
-			Vector2f pos, Game game) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getPrice() {
+		return (int)this.price;
+	}
+
+	//TODO changer la couleur de la case et tout et tout
+	public void setOwner(Player player) {
+		this.owner = player;
+		this.setColor(player.getColor());
+		
+	}
+	
+	public Player getOwner(){
+		return owner;
 	}
 
 }

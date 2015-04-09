@@ -167,10 +167,11 @@ public class GameContent extends Content{
 		
 		Vector2f caseSize =  game.getBoard().getCaseSize(game.getPlayers()[game.getActualPlayer().getId()].getPosition()); 
 		pions[game.getActualPlayer().getId()].setPosition(new Vector2f(((float)super.getWindowOption().getSize().x * X_PERCENT) + game.getBoard().getCasePos(game.getActualPlayer().getPosition()).x + caseSize.x/2 - pionsRadius
-				,game.getBoard().getCasePos(0).y + caseSize.y/2 - pionsRadius));
+				,game.getBoard().getCasePos(game.getActualPlayer().getPosition()).y + caseSize.y/2 - pionsRadius));
 	}
 
 	public void onClickOnCase(String name) {
+		if(popUp != null)return;
 		Vector2f pos = new Vector2f(0.5f,0.2f);
 		Vector2f size = new Vector2f(400,400);
 		

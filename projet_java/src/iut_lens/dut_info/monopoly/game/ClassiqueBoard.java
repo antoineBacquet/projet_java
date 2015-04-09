@@ -2,9 +2,11 @@ package iut_lens.dut_info.monopoly.game;
 
 import iut_lens.dut_info.monopoly.core.TextureManager;
 import iut_lens.dut_info.monopoly.game.cases.Case;
-import iut_lens.dut_info.monopoly.game.cases.CaseDebug;
+import iut_lens.dut_info.monopoly.game.cases.CaseDefault;
 import iut_lens.dut_info.monopoly.game.cases.Chance;
+import iut_lens.dut_info.monopoly.game.cases.CommunityChest;
 import iut_lens.dut_info.monopoly.game.cases.Company;
+import iut_lens.dut_info.monopoly.game.cases.MustPaidCase;
 import iut_lens.dut_info.monopoly.game.cases.Property;
 import iut_lens.dut_info.monopoly.game.cases.Station;
 import iut_lens.dut_info.monopoly.vue.GameContent;
@@ -29,19 +31,19 @@ public class ClassiqueBoard extends Board {
 
 		cases = new Case[NB_CASE];
 		
-		super.cases[0] = new CaseDebug(this, "depart");
+		super.cases[0] = new CaseDefault(this, "depart");
 		super.cases[1] = new Property(this, "quaisDeSeine");
-		super.cases[2] = new Chance(this,"chance"); //TODO changer en caise de com
+		super.cases[2] = new CommunityChest(this,"caisseDeCommunaute"); 
 		super.cases[3] = new Property(this, "montmartre");
-		super.cases[4] = new CaseDebug(this, "depart"); //TODO impot sur revenu
+		super.cases[4] = new MustPaidCase(this, "impots", 2_000_000);
 		super.cases[5] = new Station(this, "gareDuNord");
-		super.cases[6] = new CaseDebug(this, "fillesDuCalvaire");
+		super.cases[6] = new Property(this, "fillesDuCalvaire");
 		super.cases[7] = new Chance(this, "chance");
 		super.cases[8] = new Property(this, "porteDesLilas");
 		super.cases[9] = new Property(this, "notreDameDeschamps");
 		
 		//TODO a changer en case prison
-		super.cases[10] = new CaseDebug(this, "prison");
+		super.cases[10] = new CaseDefault(this, "prison");
 		
 		super.cases[11] = new Property(this, "pontAlexandreIII");
 		super.cases[12] = new Company(this,"telecoms"); 
@@ -49,11 +51,11 @@ public class ClassiqueBoard extends Board {
 		super.cases[14] = new Property(this, "passerelleDesArts"); 
 		super.cases[15] = new Station(this, "gareSaintLazare");
 		super.cases[16] = new Property(this, "museeDorsay");
-		super.cases[17] = new Chance(this, "chance");//TODO caisse de com
+		super.cases[17] = new CommunityChest(this, "caisseDeCommunaute");
 		super.cases[18] = new Property(this, "beaubourg");
 		super.cases[19] = new Property(this, "citeDesSciences");
 
-		super.cases[20] = new CaseDebug(this, "parcGratuit");
+		super.cases[20] = new CaseDefault(this, "parcGratuit");
 		
 		super.cases[21] = new Property(this, "stadeDeFrance");
 		super.cases[22] = new Chance(this,"chance"); 
@@ -61,20 +63,20 @@ public class ClassiqueBoard extends Board {
 		super.cases[24] = new Property(this, "palaisOmnisportDeParisBercy"); 
 		super.cases[25] = new Station(this, "gareMontparnasse");
 		super.cases[26] = new Property(this, "lyceeHenriIV");
-		super.cases[27] = new Property(this, "ecoleDesArtsEtMetiers");//TODO caisse de com
+		super.cases[27] = new Property(this, "ecoleDesArtsEtMetiers");
 		super.cases[28] = new Company(this, "satellite");
 		super.cases[29] = new Property(this, "laSorbonne");
 
-		super.cases[30] = new CaseDebug(this, "allerPrison"); //TODO aller en prison
+		super.cases[30] = new CaseDefault(this, "allerPrison"); //TODO aller en prison
 		
 		super.cases[31] = new Property(this, "laDefense");
 		super.cases[32] = new Property(this,"laBourse"); 
-		super.cases[33] = new Chance(this, "caisseDeCommunaute"); //TODO caisse de com
+		super.cases[33] = new CommunityChest(this, "caisseDeCommunaute"); 
 		super.cases[34] = new Property(this, "ministereDesFinances"); 
 		super.cases[35] = new Station(this, "gareDeLyon");
 		super.cases[36] = new Chance(this, "chance");
-		super.cases[37] = new Property(this, "notreDameDeParis");//TODO caisse de com
-		super.cases[38] = new CaseDebug(this, "taxeDeLuxe"); //TODO taxe
+		super.cases[37] = new Property(this, "notreDameDeParis");
+		super.cases[38] = new MustPaidCase(this, "taxeDeLuxe",1_000_000);
 		super.cases[39] = new Property(this, "tourEiffel");
 		
 		

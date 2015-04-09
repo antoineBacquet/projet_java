@@ -22,9 +22,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class Property extends Case implements ActionListener{
-	
-	private Player owner = null;
+public class Property extends Buyable{
 	
 	private Property[] otherProperty;
 	
@@ -87,15 +85,6 @@ public class Property extends Case implements ActionListener{
 		} catch (NullPointerException ex) {
 			ex.printStackTrace();
 		}
-	}
-	
-	
-
-	@Override
-	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2i windowSize, Vector2f pos, Game game) {
-		if(owner == null)return new FallOnFreeProperty(game.getListener(), pos, windowSize, size, this, game);
-		
-		return new OnFallOnOwnedProperty(game.getListener(), pos, windowSize, size, this, game);
 	}
 	
 	public int getRent(){

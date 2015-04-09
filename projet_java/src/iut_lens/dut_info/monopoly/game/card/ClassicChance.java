@@ -17,7 +17,7 @@ public class ClassicChance implements CardBuilder{
 
 		cards.add(new Card(new GoToStrategy(39, false),"photosPlateau/chance",
 				"Vous allez visiter les monuments de Paris. Rendez-vous à la Tour Eiffel.",game));
-		cards.add(new Card(new GoToStrategy(0, false),"photosPlateau/chance",
+		cards.add(new Card(new GoToStrategy(0, true),"photosPlateau/chance",
 				"Avancez jusqu'à la case départ.",game)); 
 		cards.add(new Card(new GoToStrategy(24, false),"photosPlateau/chance",
 				"Vous allez à un concert. Rendez-vous au Palais Omnisport de Paris Bercy. Si vous passez par la case départ recevez 2 millions €.",game)); 

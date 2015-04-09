@@ -17,15 +17,17 @@ public class MustPayPopUp extends CaseFallOnActionPopUp implements ActionListene
 
 	
 	private Button okButton;
+	private int value;
 	
 	
 	public MustPayPopUp(ActionListener actionListener, Vector2f pos,
-			Vector2i windowSize, Vector2f size, Case caseSource, Game game,
-			String message) {
-		super(actionListener, pos, windowSize, size, caseSource, game, message);
+			Vector2i windowSize, Vector2f size, Case caseSource, Game game, int value) {
+		super(actionListener, pos, windowSize, size, caseSource, game, "vous payez : " + value);
 		
 		okButton = new Button(this,new Vector2f(150,50),"OK");
-		okButton.setPositionRelativeToRectangle(super.rectangle, 0.8f, 0.5f);
+		okButton.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.8f);
+		
+		this.value = value;
 		
 	}
 
@@ -51,7 +53,11 @@ public class MustPayPopUp extends CaseFallOnActionPopUp implements ActionListene
 
 	@Override
 	public void actionPerformed(Action action) {
-		// TODO Auto-generated method stub
+		if(action.getSource() == okButton){
+			game.actualPlayerPaid(value);
+			actionListener.actionPerformed(new Action(this));
+			game.endTurn();
+		}
 		
 	}
 

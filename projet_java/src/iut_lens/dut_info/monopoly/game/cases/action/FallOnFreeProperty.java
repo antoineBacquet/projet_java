@@ -4,6 +4,7 @@ import iut_lens.dut_info.monopoly.core.element.Action;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.core.element.Button;
 import iut_lens.dut_info.monopoly.game.Game;
+import iut_lens.dut_info.monopoly.game.cases.Buyable;
 import iut_lens.dut_info.monopoly.game.cases.Property;
 
 import org.jsfml.graphics.RenderStates;
@@ -19,7 +20,7 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 	private Button notBuyButton;
 
 	public FallOnFreeProperty(ActionListener actionListener, Vector2f pos,
-			Vector2i windowSize, Vector2f size, Property caseSource, Game game) {
+			Vector2i windowSize, Vector2f size, Buyable caseSource, Game game) {
 		super(actionListener, pos, windowSize, size, caseSource, game, "voulez-vous acheter?");
 
 
@@ -56,7 +57,7 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 	@Override
 	public void actionPerformed(Action action) {
 		if(action.getSource() == this.buyButton){
-			game.buyProperty((Property)super.caseSource);
+			game.buyProperty((Buyable)super.caseSource);
 			actionListener.actionPerformed(new Action(this));
 		}
 		if(action.getSource() == this.notBuyButton){

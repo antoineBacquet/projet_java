@@ -15,7 +15,6 @@ public class PaidMoneyStrategy implements CardStrategy {
 
 	@Override
 	public void onDraw(Game game) {
-		// TODO Auto-generated method stub
 		game.actualPlayerPaid(money);
 	}
 

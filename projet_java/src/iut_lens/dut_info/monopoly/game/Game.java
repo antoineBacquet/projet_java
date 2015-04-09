@@ -5,14 +5,12 @@ package iut_lens.dut_info.monopoly.game;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.card.Card;
 import iut_lens.dut_info.monopoly.game.card.CardBuilder;
+import iut_lens.dut_info.monopoly.game.cases.Buyable;
 import iut_lens.dut_info.monopoly.game.cases.Case;
-import iut_lens.dut_info.monopoly.game.cases.Property;
 import iut_lens.dut_info.monopoly.vue.GameContent;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderStates;
@@ -157,9 +155,10 @@ public class Game {
 		
 	}
 	
-	public void buyProperty(Property property){
+	public void buyProperty(Buyable property){
 		if(players[actualPlayer].getMoney()<property.getPrice()){
-			//TODO coder quand il n'y a pas assez d'argent
+			System.out.println("Game :: buyProperty(Buyable) -> Erreur pas assez d'argent");
+			endTurn();
 		}
 		else{
 			property.setOwner(players[actualPlayer]);
@@ -180,9 +179,10 @@ public class Game {
 			if(isPayDay && playerPos+nbCase>board.getNbCase()){
 				players[actualPlayer].giveMonney(PAYDAY);
 			}
-			board.movePlayer(players[actualPlayer], nbCase);
+			Case caseTmp = board.movePlayer(players[actualPlayer],nbCase);
 			content.onPlayerMoved();
-			endTurn();
+			//on regarde l'action de la case actuel
+			content.onFallOnCase(caseTmp.onFallOn(new Vector2f(400,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
 		}
 
 	//TODO a coder
@@ -192,25 +192,30 @@ public class Game {
 		if(isPayDay && playerPos>caseId){
 			players[actualPlayer].giveMonney(PAYDAY);
 		}
-		board.movePlayerTo(players[actualPlayer], caseId);
+		Case caseTmp = board.movePlayerTo(players[actualPlayer],caseId);
 		content.onPlayerMoved();
-		endTurn();
+		//on regarde l'action de la case actuel
+		content.onFallOnCase(caseTmp.onFallOn(new Vector2f(400,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
 	}
 
 	public void earnActualPlayer(int money) {
-		if(players[actualPlayer].getMoney()<money){
-			//TODO coder quand il n'y a pas assez d'argent
-		}
-		else{
-			players[actualPlayer].paye(money);
-			endTurn();
-		}
-	}
-
-	public void actualPlayerPaid(int money) {
 		players[actualPlayer].giveMonney(money);
 		content.majPlayerMoney(actualPlayer);
 		endTurn();
+	}
+
+	public void actualPlayerPaid(int money) {
+		
+		if(players[actualPlayer].getMoney()<money){
+			System.out.println("Game :: earnActualPlayer(int) -> Erreur pas assez d'argent");
+			//TODO coder quand il n'y a pas assez d'argent
+			endTurn();
+		}
+		else{
+			players[actualPlayer].paye(money);
+			content.majPlayerMoney(actualPlayer);
+			endTurn();
+		}
 		
 	}
 
@@ -222,6 +227,8 @@ public class Game {
 	public void actualPlayerRentPlayer(Player owner, int rent) {
 		if(players[actualPlayer].getMoney()<rent){
 			//TODO coder quand il n'y a pas assez d'argent
+			System.out.println("Game :: actualPlayerRentPlayer(Player,int) -> Erreur pas assez d'argent");
+			endTurn();
 		}
 		else{
 			players[actualPlayer].paye(rent);
@@ -256,6 +263,10 @@ public class Game {
 	public Player getActualPlayer() {
 		return players[actualPlayer];
 		
+	}
+
+	public int getDicesValue() {
+		return dices[0].getNumber() + dices[1].getNumber();
 	}
 	
 	

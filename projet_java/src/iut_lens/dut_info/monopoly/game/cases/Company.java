@@ -1,25 +1,30 @@
 package iut_lens.dut_info.monopoly.game.cases;
 
+import iut_lens.dut_info.monopoly.core.Util;
+import iut_lens.dut_info.monopoly.core.element.Action;
+import iut_lens.dut_info.monopoly.game.Board;
+import iut_lens.dut_info.monopoly.game.Player;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import iut_lens.dut_info.monopoly.core.element.Action;
-import iut_lens.dut_info.monopoly.game.Board;
-import iut_lens.dut_info.monopoly.game.Game;
-import iut_lens.dut_info.monopoly.game.cases.action.CaseFallOnActionPopUp;
-
-import org.jsfml.system.Vector2f;
-import org.jsfml.system.Vector2i;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class Company extends Case {
+public class Company extends Buyable {
 	
 	private static final String filePath = "Projet/Cartes/Entreprise/";
+	
+	
+	private int price;
+	
+	
 
+	private int hypothequeTerrain;
+
+	
 	public Company(Board board, String name) {
 		super(board, name);
 		loadData();
@@ -36,16 +41,13 @@ public class Company extends Case {
 
 			
 			String nom = (String) jsonObject.get("nom");
-			System.out.println("Carte : " + nom);
+			//System.out.println("Carte : " + nom);
 			
 
-			long achat = (long) jsonObject.get("prixAchat");
-			System.out.println("La casse coute : " + achat);
+			price = Util.longToInt((long) jsonObject.get("prixAchat"));
 
 			
-			long ht =  (long) jsonObject.get("valeurHypotheque");
-			System.out.println("L'hypotheque du terrain est de : " + ht);
-
+			hypothequeTerrain =  Util.longToInt((long) jsonObject.get("valeurHypotheque"));
 			
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
@@ -57,18 +59,31 @@ public class Company extends Case {
 			ex.printStackTrace();
 		}
 	}
+	
+	public int getRent(){
+		return  Util.longToInt(4*board.getGame().getDicesValue());
+	}
 
 	@Override
 	public void actionPerformed(Action action) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
-	@Override
-	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2i windowSize,
-			Vector2f pos, Game game) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getPrice() {
+		return (int)this.price;
 	}
+
+	//TODO changer la couleur de la case et tout et tout
+	public void setOwner(Player player) {
+		this.owner = player;
+		this.setColor(player.getColor());
+		
+	}
+	
+	public Player getOwner(){
+		return owner;
+	}
+
 
 }
