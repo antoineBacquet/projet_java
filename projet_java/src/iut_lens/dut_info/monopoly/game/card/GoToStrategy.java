@@ -17,7 +17,7 @@ public class GoToStrategy implements CardStrategy {
 	
 	@Override
 	public void onDraw(Game game) {
-		game.moveActualPlayer(caseId, this.isPayDay);
+		game.moveActualPlayerTo(caseId, this.isPayDay);
 
 	}
 

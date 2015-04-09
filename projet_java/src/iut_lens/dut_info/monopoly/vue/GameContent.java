@@ -8,6 +8,9 @@ import iut_lens.dut_info.monopoly.core.element.Button;
 import iut_lens.dut_info.monopoly.game.ActionPopUp;
 import iut_lens.dut_info.monopoly.game.CaseActionPopUp;
 import iut_lens.dut_info.monopoly.game.Game;
+import iut_lens.dut_info.monopoly.game.card.CardActionPopUp;
+import iut_lens.dut_info.monopoly.game.card.ClassicChance;
+import iut_lens.dut_info.monopoly.game.card.ClassicCommu;
 import iut_lens.dut_info.monopoly.game.cases.action.CaseFallOnActionPopUp;
 
 import org.jsfml.graphics.CircleShape;
@@ -53,7 +56,7 @@ public class GameContent extends Content{
 		super.addElementNoRender(diceButton);
 		
 		createPlayerUI(players);
-		game.init(null,null);//TODO mettre les bon builder
+		game.init(new ClassicChance(),new ClassicCommu());//TODO mettre les bon builder
 		
 		createPions();
 		
@@ -191,6 +194,12 @@ public class GameContent extends Content{
 	
 	public void majPlayerMoney(int idPlayer){
 		playersUI[idPlayer].majMoney(game.getPlayers()[idPlayer].getMoney());
+	}
+
+
+	public void setPopUp(ActionPopUp popUp) {
+		this.popUp = popUp;
+		
 	}
 
 }

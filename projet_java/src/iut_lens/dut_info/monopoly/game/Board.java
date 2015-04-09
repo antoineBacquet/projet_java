@@ -64,6 +64,12 @@ public abstract class Board extends SousContent {
 		return cases[player.getPosition()];
 
 	}
+	
+	public Case movePlayerTo(Player player, int caseId) {
+		player.setPosition(caseId % this.NB_CASE);
+		return cases[player.getPosition()];
+
+	}
 
 	public Game getGame() {
 		return game;

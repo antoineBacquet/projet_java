@@ -28,24 +28,26 @@ public class CardActionPopUp extends ActionPopUp implements ActionListener {
 		this.card = card;
 		this.game = game;
 		this.okButton = new Button(this,new Vector2f(150,50), "OK");
+		this.okButton.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.8f);
 		
 	}
 
 	@Override
 	public void draw(RenderTarget target, RenderStates states) {
 		super.renderFlou(target, states);
+		okButton.render(target);
 		
 	}
 
 	@Override
 	public boolean handleEvent(Event evt) {
-		// TODO Auto-generated method stub
+		okButton.handleEvent(evt);
 		return false;
 	}
 
 	@Override
 	public void update(Time tau) {
-		// TODO Auto-generated method stub
+		okButton.update(tau);
 		
 	}
 
@@ -53,6 +55,7 @@ public class CardActionPopUp extends ActionPopUp implements ActionListener {
 	public void actionPerformed(Action action) {
 		if(action.getSource() == this.okButton){
 			card.doAction();
+			super.actionListener.actionPerformed(new Action(this));
 		}
 		
 	}

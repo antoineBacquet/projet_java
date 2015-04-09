@@ -15,7 +15,6 @@ public class EarnStrategy implements CardStrategy {
 
 	@Override
 	public void onDraw(Game game) {
-		// TODO Auto-generated method stub
 		game.earnActualPlayer(money);
 	}
 

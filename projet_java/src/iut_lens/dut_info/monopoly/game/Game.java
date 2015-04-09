@@ -9,6 +9,9 @@ import iut_lens.dut_info.monopoly.game.cases.Case;
 import iut_lens.dut_info.monopoly.game.cases.Property;
 import iut_lens.dut_info.monopoly.vue.GameContent;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.jsfml.graphics.Color;
@@ -45,9 +48,9 @@ public class Game {
 	
 	private boolean isInTurn;
 	
-	private List<Card> chancesCard;
+	private LinkedList<Card> chancesCard;
 	
-	private List<Card> caissesCard;
+	private LinkedList<Card> caissesCard;
 	
 	
 	public Game(String[] playersName,GameContent content) {
@@ -72,9 +75,11 @@ public class Game {
 		board.createCase();
 		
 		//TODO a decomenter une fois que ce sera coder
-		//chancesCard = chanceBuilder.getCards(this);
-		//caissesCard = caissesBuilder.getCards(this);
-
+		chancesCard = chanceBuilder.getCards(this);
+		Collections.shuffle(chancesCard);
+		caissesCard = caissesBuilder.getCards(this);
+		Collections.shuffle(caissesCard);
+		
 		createPlayer(playersName);
 		for(int i=0 ; i<players.length ; i++)
 			content.majPlayerMoney(i);
@@ -133,6 +138,10 @@ public class Game {
 		for(Player p:players)
 			target.draw(p,state);
 	}
+
+	public ActionListener getListener() {
+		return content;
+	}
 	
 	public Board getBoard(){
 		return board;
@@ -163,29 +172,45 @@ public class Game {
 	public Vector2i getWindowSize() {
 		return content.getWindowOption().getSize();
 	}
+	
+	//TODO a coder
+		public void moveActualPlayer(int nbCase, boolean isPayDay) {
+			int playerPos = players[actualPlayer].getPosition();
+			
+			if(isPayDay && playerPos+nbCase>board.getNbCase()){
+				players[actualPlayer].giveMonney(PAYDAY);
+			}
+			board.movePlayer(players[actualPlayer], nbCase);
+			content.onPlayerMoved();
+			endTurn();
+		}
 
 	//TODO a coder
-	public void moveActualPlayer(int caseId, boolean isPayDay) {
+	public void moveActualPlayerTo(int caseId, boolean isPayDay) {
 		int playerPos = players[actualPlayer].getPosition();
 		
-		if(isPayDay && playerPos+caseId>board.getNbCase()){
+		if(isPayDay && playerPos>caseId){
 			players[actualPlayer].giveMonney(PAYDAY);
 		}
-	}
-		
-
-	public ActionListener getListener() {
-		return content;
+		board.movePlayerTo(players[actualPlayer], caseId);
+		content.onPlayerMoved();
+		endTurn();
 	}
 
 	public void earnActualPlayer(int money) {
-		// TODO Auto-generated method stub
-		
+		if(players[actualPlayer].getMoney()<money){
+			//TODO coder quand il n'y a pas assez d'argent
+		}
+		else{
+			players[actualPlayer].paye(money);
+			endTurn();
+		}
 	}
 
-	public void withdrawMoneyActualPlayer(int money) {
-		// TODO Auto-generated method stub
-		// verifie que le joueur peut donner
+	public void actualPlayerPaid(int money) {
+		players[actualPlayer].giveMonney(money);
+		content.majPlayerMoney(actualPlayer);
+		endTurn();
 		
 	}
 
@@ -207,7 +232,20 @@ public class Game {
 		
 	}
 	
-	public void comunityChest(){
+	public void drawChance(){
+		Card tmp = this.chancesCard.getFirst();
+		this.chancesCard.removeFirst();
+		this.chancesCard.addLast(tmp);
+		content.setPopUp(tmp.onDraw(content, new Vector2f(0.5f,0.5f), board.getGame().getWindowSize(), new Vector2f(400,600)));
+	}
+	
+	public void drawComunityChest(){
+		Card tmp = this.caissesCard.getFirst();
+		this.caissesCard.removeFirst();
+		this.caissesCard.addLast(tmp);
+		content.setPopUp(tmp.onDraw(content, new Vector2f(0.5f,0.5f), board.getGame().getWindowSize(), new Vector2f(400,600)));
+		
+		
 		
 	}
 	

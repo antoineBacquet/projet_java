@@ -2,11 +2,11 @@ package iut_lens.dut_info.monopoly.game.card;
 
 import iut_lens.dut_info.monopoly.game.Game;
 
-import java.util.List;
+import java.util.LinkedList;
 
 public interface CardBuilder {
 	
 	
-	public List<Card> getCards(Game game);
+	public LinkedList<Card> getCards(Game game);
 
 }

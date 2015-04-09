@@ -54,6 +54,7 @@ public class FallOnChance extends CaseFallOnActionPopUp implements ActionListene
 	public void actionPerformed(Action action) {
 		if(action.getSource() == okButton){
 			actionListener.actionPerformed(new Action(this));
+			game.drawChance();
 		}
 			
 		
