@@ -26,7 +26,7 @@ public class ClassicCommu implements CardBuilder {
 		cards.add(new Card(new EarnStrategy(1000000),"photosPlateau/chance","Vous louez votre jet privé. Recevez 1 millions €.",game)); 
 		//cards.add(new Card(new EarnStrategy(200000),"photosPlateau/chance","Le fisc effectue un contrôle de vos impôts. Allez en prison. Avancez tout droit en prison. Ne passez pas par la case départ. Ne touchez pas 2 millions €.",game)); 
 		cards.add(new Card(new PaidMoneyStrategy(1000000),"photosPlateau/chance","Vous organisez un concert à l'Olympia. Payez 1 millions €.",game)); 
-		cards.add(new Card(new GoToStrategy(0, false),"photosPlateau/chance","Reculez jusqu'aux Quais de Seine pour une visite chez les Bouquinistes.",game)); 
+		cards.add(new Card(new GoToStrategy(1, false),"photosPlateau/chance","Reculez jusqu'aux Quais de Seine pour une visite chez les Bouquinistes.",game)); 
 		cards.add(new Card(new EarnStrategy(1000000),"photosPlateau/chance","Vous héritez de 3 millions € et vous devez payer les droits de succession. Recevez 1 millions €.",game)); 
 		cards.add(new Card(new PaidMoneyStrategy(500000),"photosPlateau/chance","Vous endommagez un tableau au Musée d'Orsay. Payer 500 000 € de réparations.",game)); 
 		cards.add(new Card(new EarnStrategy(500000),"photosPlateau/chance","Vous bénéficiez d'une remise d'impôts. Recevez 500 000 €.",game)); 
