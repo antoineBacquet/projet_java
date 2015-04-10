@@ -3,6 +3,7 @@ package iut_lens.dut_info.monopoly.game;
 import iut_lens.dut_info.monopoly.core.SousContent;
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.cases.Case;
+import iut_lens.dut_info.monopoly.game.cases.Property;
 import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickAction;
 import iut_lens.dut_info.monopoly.vue.GameContent;
 
@@ -88,6 +89,21 @@ public abstract class Board extends SousContent {
 
 	public int getNbCase() {
 		return NB_CASE;
+	}
+	
+	public boolean habAllProperty(Player pla, Property pro){
+		for(Case c:cases){
+			if(c instanceof Property && pro.getColor().equals( ((Property)c).getColor())){
+				if(((Property)c).getOwner()!=pla)return false;
+			}
+			
+		}
+		return true;
+		
+		
+		
+		
+		
 	}
 
 }
