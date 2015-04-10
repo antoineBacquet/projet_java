@@ -6,6 +6,7 @@ import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.Board;
 import iut_lens.dut_info.monopoly.game.Game;
 import iut_lens.dut_info.monopoly.game.Player;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.BuildHouse;
 import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickAction;
 import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickOnProperty;
 import iut_lens.dut_info.monopoly.game.cases.clickAction.DefaultClickAction;
@@ -34,6 +35,8 @@ public class Property extends Buyable{
 
 	private int prixHotel;
 	
+	private String color;
+	
 	private int nbHouses = 0;
 
 	private List<Long> loyer;
@@ -53,7 +56,7 @@ public class Property extends Buyable{
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
 
-			String couleur = (String) jsonObject.get("couleur");
+			color = (String) jsonObject.get("couleur");
 			//System.out.println("Couleur : " + couleur);
 			
 			String nom = (String) jsonObject.get("nom");
@@ -110,14 +113,36 @@ public class Property extends Buyable{
 		return owner;
 	}
 	
+	public int getHousePrice(){
+		return this.prixAppartement;
+	}
+	
 	@Override
 	public ClickAction onClickOn(ActionListener listener, Vector2f size,
 			Vector2i windowSize, Vector2f pos, Game game) {
 		if(!board.getGame().isInTurn() && owner == board.getGame().getActualPlayer())
-			return new ClickOnProperty(listener, pos, windowSize, size, name, game,this);
+			if(board.habAllProperty(owner, this))
+				return new BuildHouse(listener, pos, windowSize, size, name, game, this);
+			else
+				return new ClickOnProperty(listener, pos, windowSize, size, name, game,this);
 		else
 			return new DefaultClickAction(listener, pos, windowSize, size, name, game);
 		
 	}
+
+	public String getColor() {
+		return this.color;
+	}
+
+	public int getNbHouse() {
+		return nbHouses;
+	}
+	public void addHouse(){
+		nbHouses++;
+	}
+	public void removeHouse(){
+		nbHouses--;
+	}
+	
 
 }
