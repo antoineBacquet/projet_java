@@ -71,5 +71,16 @@ public class Util {
 	    }
 	    return (int) l;
 	}
+	
+	public static float getDiag(RectangleShape rect) {
+		return (float) Math.sqrt((
+					((rect.getPosition().x+rect.getSize().x) - rect.getPosition().x)*
+					((rect.getPosition().x+rect.getSize().x) - rect.getPosition().x)
+				)+(
+						((rect.getPosition().x+rect.getSize().y) - rect.getPosition().y)*
+						((rect.getPosition().x+rect.getSize().y) - rect.getPosition().y)
+				)
+				);
+	}
 
 }

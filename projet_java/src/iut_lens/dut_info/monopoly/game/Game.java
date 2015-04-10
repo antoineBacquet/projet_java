@@ -3,10 +3,12 @@ package iut_lens.dut_info.monopoly.game;
 
 
 import iut_lens.dut_info.monopoly.core.element.ActionListener;
+import iut_lens.dut_info.monopoly.core.element.Button;
 import iut_lens.dut_info.monopoly.game.card.Card;
 import iut_lens.dut_info.monopoly.game.card.CardBuilder;
 import iut_lens.dut_info.monopoly.game.cases.Buyable;
 import iut_lens.dut_info.monopoly.game.cases.Case;
+import iut_lens.dut_info.monopoly.game.cases.Property;
 import iut_lens.dut_info.monopoly.vue.GameContent;
 
 import java.util.Collections;
@@ -28,7 +30,7 @@ public class Game {
 	
 	private final Color[] colors  = {Color.BLUE,Color.GREEN,Color.MAGENTA,Color.RED,Color.YELLOW,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK};//TODO ajouter d'autre couleurs
 	
-	private final int START_MONEY = 1_500_000;
+	private final int START_MONEY = 15_000_000;
 	
 	private GameContent content;
 	
@@ -102,7 +104,7 @@ public class Game {
 		Case caseTmp = board.movePlayer(players[actualPlayer],diceNumber); // TODO a remettre apres dices[0].getNumber() + dices[1].getNumber()
 		content.onPlayerMoved();
 		//on regarde l'action de la case actuel
-		content.onFallOnCase(caseTmp.onFallOn(new Vector2f(400,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
+		content.onFallOnCase(caseTmp.onFallOn(new Vector2f(600,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
 		
 	}
 	
@@ -151,14 +153,14 @@ public class Game {
 	}
 
 	public void onMouseClick() {
-		board.onMouseClick();
+		board.onMouseClick(getListener(),new Vector2f(600,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this);
 		
 	}
 	
 	public void buyProperty(Buyable property){
 		if(players[actualPlayer].getMoney()<property.getPrice()){
 			System.out.println("Game :: buyProperty(Buyable) -> Erreur pas assez d'argent");
-			endTurn();
+			content.setPopUp(new NotEnoughtMoney(getListener(),new Vector2f(0.5f,0.5f),board.getGame().getWindowSize(),new Vector2f(600,600),"/attention" ,this));
 		}
 		else{
 			property.setOwner(players[actualPlayer]);
@@ -172,7 +174,7 @@ public class Game {
 		return content.getWindowOption().getSize();
 	}
 	
-	//TODO a coder
+	
 		public void moveActualPlayer(int nbCase, boolean isPayDay) {
 			int playerPos = players[actualPlayer].getPosition();
 			
@@ -182,10 +184,10 @@ public class Game {
 			Case caseTmp = board.movePlayer(players[actualPlayer],nbCase);
 			content.onPlayerMoved();
 			//on regarde l'action de la case actuel
-			content.onFallOnCase(caseTmp.onFallOn(new Vector2f(400,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
+			content.onFallOnCase(caseTmp.onFallOn(new Vector2f(600,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
 		}
 
-	//TODO a coder
+	
 	public void moveActualPlayerTo(int caseId, boolean isPayDay) {
 		int playerPos = players[actualPlayer].getPosition();
 		
@@ -195,7 +197,7 @@ public class Game {
 		Case caseTmp = board.movePlayerTo(players[actualPlayer],caseId);
 		content.onPlayerMoved();
 		//on regarde l'action de la case actuel
-		content.onFallOnCase(caseTmp.onFallOn(new Vector2f(400,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
+		content.onFallOnCase(caseTmp.onFallOn(new Vector2f(600,600),board.getGame().getWindowSize(),new Vector2f(0.5f,0.5f), this));
 	}
 
 	public void earnActualPlayer(int money) {
@@ -233,6 +235,8 @@ public class Game {
 		else{
 			players[actualPlayer].paye(rent);
 			owner.giveMonney(rent);
+			content.majPlayerMoney(actualPlayer);
+			content.majPlayerMoney(owner.getId());
 			endTurn();
 		}
 		
@@ -243,14 +247,14 @@ public class Game {
 		Card tmp = this.chancesCard.getFirst();
 		this.chancesCard.removeFirst();
 		this.chancesCard.addLast(tmp);
-		content.setPopUp(tmp.onDraw(content, new Vector2f(0.5f,0.5f), board.getGame().getWindowSize(), new Vector2f(400,600)));
+		content.setPopUp(tmp.onDraw(content, new Vector2f(0.5f,0.5f), board.getGame().getWindowSize(), new Vector2f(600,400)));
 	}
 	
 	public void drawComunityChest(){
 		Card tmp = this.caissesCard.getFirst();
 		this.caissesCard.removeFirst();
 		this.caissesCard.addLast(tmp);
-		content.setPopUp(tmp.onDraw(content, new Vector2f(0.5f,0.5f), board.getGame().getWindowSize(), new Vector2f(400,600)));
+		content.setPopUp(tmp.onDraw(content, new Vector2f(0.5f,0.5f), board.getGame().getWindowSize(), new Vector2f(600,400)));
 		
 		
 		
@@ -267,6 +271,24 @@ public class Game {
 
 	public int getDicesValue() {
 		return dices[0].getNumber() + dices[1].getNumber();
+	}
+
+	public boolean isInTurn() {
+		return isInTurn;
+	}
+	
+	//TODO a coder
+	public void mortageProperty(Buyable buyable) {
+		buyable.mortgage();
+		content.majPlayerMoney(actualPlayer);
+		
+	}
+	
+	//TODO a coder
+	public void unMortageProperty(Buyable buyable) {
+		buyable.unMortgage();
+		content.majPlayerMoney(actualPlayer);
+		
 	}
 	
 	

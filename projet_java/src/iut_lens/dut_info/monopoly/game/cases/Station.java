@@ -7,12 +7,15 @@ import java.util.List;
 
 import iut_lens.dut_info.monopoly.core.Util;
 import iut_lens.dut_info.monopoly.core.element.Action;
+import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.Board;
 import iut_lens.dut_info.monopoly.game.Game;
 import iut_lens.dut_info.monopoly.game.Player;
 import iut_lens.dut_info.monopoly.game.cases.action.CaseFallOnActionPopUp;
 import iut_lens.dut_info.monopoly.game.cases.action.FallOnFreeProperty;
 import iut_lens.dut_info.monopoly.game.cases.action.OnFallOnOwnedProperty;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickAction;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.DefaultClickAction;
 
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -28,8 +31,6 @@ public class Station extends Buyable{
 	private int price;
 
 	private List<Long> loyer;
-
-	private int hypothequeTerrain;
 	
 	public Station(Board board, String name) {
 		super(board, name);
@@ -61,7 +62,7 @@ public class Station extends Buyable{
 				//System.out.println("le loyer pour " + i + " gare est de : "+loyer.get(i));
 			}
 			
-			hypothequeTerrain =  Util.longToInt((long) jsonObject.get("valeurHypotheque"));
+			mortageValue =  Util.longToInt((long) jsonObject.get("valeurHypotheque"));
 			//System.out.println("L'hypotheque du terrain est de : " + ht);
 
 			
@@ -99,6 +100,13 @@ public class Station extends Buyable{
 	
 	public Player getOwner(){
 		return owner;
+	}
+	
+	@Override
+	public ClickAction onClickOn(ActionListener listener, Vector2f size,
+			Vector2i windowSize, Vector2f pos, Game game) {
+		// TODO Auto-generated method stub
+		return new DefaultClickAction(listener, pos, windowSize, size, name, game);
 	}
 
 }

@@ -2,6 +2,9 @@ package iut_lens.dut_info.monopoly.game;
 
 import iut_lens.dut_info.monopoly.core.FontManager;
 import iut_lens.dut_info.monopoly.core.Util;
+import iut_lens.dut_info.monopoly.game.cases.Property;
+
+import java.util.ArrayList;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Drawable;

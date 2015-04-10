@@ -2,13 +2,19 @@ package iut_lens.dut_info.monopoly.game.cases;
 
 import iut_lens.dut_info.monopoly.core.Util;
 import iut_lens.dut_info.monopoly.core.element.Action;
+import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.Board;
+import iut_lens.dut_info.monopoly.game.Game;
 import iut_lens.dut_info.monopoly.game.Player;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickAction;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.DefaultClickAction;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -22,7 +28,7 @@ public class Company extends Buyable {
 	
 	
 
-	private int hypothequeTerrain;
+	
 
 	
 	public Company(Board board, String name) {
@@ -47,7 +53,7 @@ public class Company extends Buyable {
 			price = Util.longToInt((long) jsonObject.get("prixAchat"));
 
 			
-			hypothequeTerrain =  Util.longToInt((long) jsonObject.get("valeurHypotheque"));
+			mortageValue =  Util.longToInt((long) jsonObject.get("valeurHypotheque"));
 			
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
@@ -83,6 +89,13 @@ public class Company extends Buyable {
 	
 	public Player getOwner(){
 		return owner;
+	}
+	
+	@Override
+	public ClickAction onClickOn(ActionListener listener, Vector2f size,
+			Vector2i windowSize, Vector2f pos, Game game) {
+		// TODO Auto-generated method stub
+		return new DefaultClickAction(listener, pos, windowSize, size, name, game);
 	}
 
 

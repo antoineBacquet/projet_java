@@ -31,10 +31,13 @@ public abstract class ActionPopUp implements Drawable {
 	private RectangleShape fuzzyRectangle;
 
 	protected ActionListener actionListener;
+	
+	private String texturePath;
 
 	public ActionPopUp(ActionListener actionListener, Vector2f pos, Vector2i windowSize,
 			Vector2f size, String texturePath, String message) {
 		this.actionListener = actionListener;
+		this.texturePath = texturePath;
 		fuzzyRectangle = new RectangleShape(new Vector2f(windowSize));
 		fuzzyRectangle.setPosition(0, 0);
 		fuzzyRectangle.setFillColor(FLOU_COLOR);
@@ -73,5 +76,10 @@ public abstract class ActionPopUp implements Drawable {
 	public abstract boolean handleEvent(Event evt);
 
 	public abstract void update(Time tau);
+
+	public String getTextureName() {
+		// TODO Auto-generated method stub
+		return texturePath ;
+	}
 
 }

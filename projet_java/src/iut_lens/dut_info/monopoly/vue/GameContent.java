@@ -12,6 +12,7 @@ import iut_lens.dut_info.monopoly.game.card.CardActionPopUp;
 import iut_lens.dut_info.monopoly.game.card.ClassicChance;
 import iut_lens.dut_info.monopoly.game.card.ClassicCommu;
 import iut_lens.dut_info.monopoly.game.cases.action.CaseFallOnActionPopUp;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickAction;
 
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
@@ -170,12 +171,10 @@ public class GameContent extends Content{
 				,game.getBoard().getCasePos(game.getActualPlayer().getPosition()).y + caseSize.y/2 - pionsRadius));
 	}
 
-	public void onClickOnCase(String name) {
-		if(popUp != null)return;
-		Vector2f pos = new Vector2f(0.5f,0.2f);
-		Vector2f size = new Vector2f(400,400);
-		
-		popUp = new CaseActionPopUp(BOARD_TEXTURE+name, this, pos, super.getWindowOption().getSize(), size);
+	public void onClickOnCase(ClickAction popUp) {
+		if(this.popUp != null)return;
+		System.out.println("GameContent :: onClickOnCase(ClickAction) -> test");
+		this.popUp = popUp; //new CaseActionPopUp(BOARD_TEXTURE+popUp, this, pos, super.getWindowOption().getSize(), size);
 		
 	}
 
@@ -201,6 +200,11 @@ public class GameContent extends Content{
 	public void setPopUp(ActionPopUp popUp) {
 		this.popUp = popUp;
 		
+	}
+
+
+	public ActionPopUp getPopUp() {
+		return popUp;
 	}
 
 }

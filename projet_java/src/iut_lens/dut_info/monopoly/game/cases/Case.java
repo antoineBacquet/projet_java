@@ -5,6 +5,7 @@ import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.Board;
 import iut_lens.dut_info.monopoly.game.Game;
 import iut_lens.dut_info.monopoly.game.cases.action.CaseFallOnActionPopUp;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickAction;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Drawable;
@@ -21,23 +22,23 @@ public abstract class Case implements Drawable,ActionListener{
 	
 	
 	
-	private static enum State{NORMAL,HOVER};
+	protected static enum State{NORMAL,HOVER};
 	
-	private State state = State.NORMAL;
+	protected State state = State.NORMAL;
 	
-	private final static Color DEFAULT_COLOR = Color.BLACK;
-	private final static Color HOVER_COLOR = new Color(1,1,1,50);
+	protected final static Color DEFAULT_COLOR = Color.BLACK;
+	protected final static Color HOVER_COLOR = new Color(1,1,1,50);
 	
 	protected final String name;
 	
 	//private Vector2f size;
 	
-	private RectangleShape rect;
+	protected RectangleShape rect;
 	protected Board board;
 
-	private Vector2f pos;
+	protected Vector2f pos;
 
-	private Vector2f size;
+	protected Vector2f size;
 	
 	
 	
@@ -65,12 +66,13 @@ public abstract class Case implements Drawable,ActionListener{
 	}
 	
 	
-	public void onMouseClick(){
+	public void onMouseClick(ActionListener listener, 	Vector2f size, Vector2i windowSize, Vector2f pos, Game game){
 		if(state == State.HOVER){
-			board.onClickOnCase(name);
-			
+			board.onClickOnCase(onClickOn(listener,size,windowSize,pos,game));
 		}
 	}
+	
+	public abstract ClickAction onClickOn(ActionListener listener, 	Vector2f size, Vector2i windowSize, Vector2f pos, Game game);
 	
 	
 	public void setSize(Vector2f size){

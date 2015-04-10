@@ -6,9 +6,9 @@ import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.Board;
 import iut_lens.dut_info.monopoly.game.Game;
 import iut_lens.dut_info.monopoly.game.Player;
-import iut_lens.dut_info.monopoly.game.cases.action.CaseFallOnActionPopUp;
-import iut_lens.dut_info.monopoly.game.cases.action.FallOnFreeProperty;
-import iut_lens.dut_info.monopoly.game.cases.action.OnFallOnOwnedProperty;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickAction;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickOnProperty;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.DefaultClickAction;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -37,8 +37,6 @@ public class Property extends Buyable{
 	private int nbHouses = 0;
 
 	private List<Long> loyer;
-
-	private int hypothequeTerrain;
 
 	public Property(Board board, String name) {
 		super(board, name);
@@ -73,7 +71,7 @@ public class Property extends Buyable{
 			
 			this.prixHotel =  Util.longToInt((long) jsonObject.get("prixHotel"));
 			
-			this.hypothequeTerrain =  Util.longToInt((long) jsonObject.get("hypothequeTerrain"));
+			this.mortageValue =  Util.longToInt((long) jsonObject.get("hypothequeTerrain"));
 
 			
 		} catch (FileNotFoundException ex) {
@@ -100,8 +98,8 @@ public class Property extends Buyable{
 	public int getPrice() {
 		return (int)this.price;
 	}
-
-	//TODO changer la couleur de la case et tout et tout
+	
+	
 	public void setOwner(Player player) {
 		this.owner = player;
 		this.setColor(player.getColor());
@@ -110,6 +108,16 @@ public class Property extends Buyable{
 	
 	public Player getOwner(){
 		return owner;
+	}
+	
+	@Override
+	public ClickAction onClickOn(ActionListener listener, Vector2f size,
+			Vector2i windowSize, Vector2f pos, Game game) {
+		if(!board.getGame().isInTurn() && owner == board.getGame().getActualPlayer())
+			return new ClickOnProperty(listener, pos, windowSize, size, name, game,this);
+		else
+			return new DefaultClickAction(listener, pos, windowSize, size, name, game);
+		
 	}
 
 }

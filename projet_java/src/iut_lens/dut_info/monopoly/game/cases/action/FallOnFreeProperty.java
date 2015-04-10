@@ -57,8 +57,8 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 	@Override
 	public void actionPerformed(Action action) {
 		if(action.getSource() == this.buyButton){
-			game.buyProperty((Buyable)super.caseSource);
 			actionListener.actionPerformed(new Action(this));
+			game.buyProperty((Buyable)super.caseSource);
 		}
 		if(action.getSource() == this.notBuyButton){
 			game.endTurn();

@@ -1,7 +1,9 @@
 package iut_lens.dut_info.monopoly.game;
 
 import iut_lens.dut_info.monopoly.core.SousContent;
+import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.cases.Case;
+import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickAction;
 import iut_lens.dut_info.monopoly.vue.GameContent;
 
 import org.jsfml.graphics.Color;
@@ -42,9 +44,9 @@ public abstract class Board extends SousContent {
 
 	public abstract void createCase();
 
-	public void onMouseClick() {
+	public void onMouseClick(ActionListener listener, Vector2f size, Vector2i windowSize, Vector2f pos, Game game) {
 		for (Case c : cases)
-			c.onMouseClick();
+			c.onMouseClick(listener,size,windowSize,pos,game);
 	}
 
 	public void onMouseMove(Vector2i mouse) {
@@ -54,8 +56,9 @@ public abstract class Board extends SousContent {
 
 	}
 
-	public void onClickOnCase(String name) {
-		gameContent.onClickOnCase(name);
+	public void onClickOnCase(ClickAction popUp) {
+		System.out.println("Board :: onClickOnCase(ClickAction) -> test");
+		gameContent.onClickOnCase(popUp);
 
 	}
 
