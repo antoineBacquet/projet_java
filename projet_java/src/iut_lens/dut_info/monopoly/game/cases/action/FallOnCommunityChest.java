@@ -24,7 +24,7 @@ public class FallOnCommunityChest extends CaseFallOnActionPopUp implements Actio
 			Vector2i windowSize, Vector2f size, Case caseSource, Game game) {
 		super(actionListener, pos, windowSize, size, caseSource, game, "Vous tirez une carte caisse de communauté");
 		
-		okButton = new Button(this,new Vector2f(150,50),"ok");
+		okButton = new Button(this,new Vector2f(150,50),"Ok");
 		okButton.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.8f);
 
 		

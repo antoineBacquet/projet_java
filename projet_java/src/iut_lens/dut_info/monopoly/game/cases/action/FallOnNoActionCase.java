@@ -20,7 +20,7 @@ public class FallOnNoActionCase extends CaseFallOnActionPopUp implements ActionL
 	
 	public FallOnNoActionCase(ActionListener actionListener, Vector2f pos,
 			Vector2i windowSize, Vector2f size, Case caseSource, Game game) {
-		super(actionListener, pos, windowSize, size, caseSource, game, "Rien de spécial");
+		super(actionListener, pos, windowSize, size, caseSource, game, "Aucune action");
 		okButton = new Button(this,new Vector2f(150,50),new Vector2f(0,0),"OK");
 		okButton.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.9f);
 	}

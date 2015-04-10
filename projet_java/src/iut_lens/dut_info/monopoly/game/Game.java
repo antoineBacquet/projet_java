@@ -294,7 +294,13 @@ public class Game {
 		content.majPlayerMoney(actualPlayer);
 		
 	}
-
+	
+	public void removeHouse(Property property) {
+		property.getOwner().giveMonney((int) (property.getHousePrice()*0.5));
+		property.removeHouse();
+	}
+	
+	
 	public void addHouse(Property property) {
 		if(property.getOwner().getMoney()< property.getHousePrice()){
 			content.setPopUp(new NotEnoughtMoney(getListener(),new Vector2f(0.5f,0.5f),board.getGame().getWindowSize(),new Vector2f(600,600),"/attention" ,this));
@@ -306,12 +312,6 @@ public class Game {
 		}
 		
 	}
-	
-	public void removeHouse(Property property) {
-		property.getOwner().giveMonney((int) (property.getHousePrice()*0.5));
-		property.removeHouse();
-	}
-	
 	
 
 }
