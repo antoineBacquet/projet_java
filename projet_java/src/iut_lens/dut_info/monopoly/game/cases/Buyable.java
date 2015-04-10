@@ -37,9 +37,9 @@ public abstract class Buyable extends Case{
 		if(owner == null)
 			return new FallOnFreeProperty(game.getListener(), pos, windowSize, size, this, game);
 		if(owner == board.getGame().getActualPlayer())
-			return new FallOnNoActionCase(game.getListener(), pos, windowSize, size, this, game, "C'est votre propriéter");
+			return new FallOnNoActionCase(game.getListener(), pos, windowSize, size, this, game, "Vous êtes le propriétaire");
 		if(isMortage)
-			return new FallOnNoActionCase(game.getListener(), pos, windowSize, size, this, game, "Cette propiéter est hypothéquée");
+			return new FallOnNoActionCase(game.getListener(), pos, windowSize, size, this, game, "Cette propriété est hypothéquée");
 		return new OnFallOnOwnedProperty(game.getListener(), pos, windowSize, size, this, game);
 	}
 	

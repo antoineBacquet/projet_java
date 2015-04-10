@@ -22,7 +22,7 @@ public class MustPayPopUp extends CaseFallOnActionPopUp implements ActionListene
 	
 	public MustPayPopUp(ActionListener actionListener, Vector2f pos,
 			Vector2i windowSize, Vector2f size, Case caseSource, Game game, int value) {
-		super(actionListener, pos, windowSize, size, caseSource, game, "vous payez : " + value);
+		super(actionListener, pos, windowSize, size, caseSource, game, "Vous payez : " + value);
 		
 		okButton = new Button(this,new Vector2f(150,50),"OK");
 		okButton.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.8f);

@@ -21,13 +21,13 @@ public class FallOnFreeProperty extends CaseFallOnActionPopUp implements ActionL
 
 	public FallOnFreeProperty(ActionListener actionListener, Vector2f pos,
 			Vector2i windowSize, Vector2f size, Buyable caseSource, Game game) {
-		super(actionListener, pos, windowSize, size, caseSource, game, "voulez-vous acheter?");
+		super(actionListener, pos, windowSize, size, caseSource, game, "Voulez-vous acheter?");
 
 
-		buyButton = new Button(this,new Vector2f(150,50),new Vector2f(0,0),"acheter");
+		buyButton = new Button(this,new Vector2f(150,50),new Vector2f(0,0),"Acheter");
 		buyButton.setPositionRelativeToRectangle(super.rectangle, 0.2f, 0.9f);
 		
-		notBuyButton = new Button(this,new Vector2f(150,50),new Vector2f(0,150),"ne pas acheter");
+		notBuyButton = new Button(this,new Vector2f(150,50),new Vector2f(0,150),"Ne pas acheter");
 		notBuyButton.setPositionRelativeToRectangle(super.rectangle, 0.8f, 0.9f);
 	}
 

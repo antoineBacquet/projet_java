@@ -21,8 +21,8 @@ public class OnFallOnOwnedProperty extends CaseFallOnActionPopUp implements Acti
 
 	public OnFallOnOwnedProperty(ActionListener actionListener, Vector2f pos,
 			Vector2i windowSize, Vector2f size, Buyable caseSource, Game game) {
-		super(actionListener, pos, windowSize, size, caseSource, game, "Vous devez payer un loyer : " + caseSource.getRent());
-		okButton = new Button(this,new Vector2f(150,50),new Vector2f(0,0),"ok");
+		super(actionListener, pos, windowSize, size, caseSource, game, "Vous devez payer un loyer de : " + caseSource.getRent());
+		okButton = new Button(this,new Vector2f(150,50),new Vector2f(0,0),"Ok");
 		okButton.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.8f);
 		this.property = caseSource;
 	}
