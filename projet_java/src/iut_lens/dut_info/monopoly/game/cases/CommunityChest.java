@@ -5,7 +5,7 @@ import iut_lens.dut_info.monopoly.core.element.ActionListener;
 import iut_lens.dut_info.monopoly.game.Board;
 import iut_lens.dut_info.monopoly.game.Game;
 import iut_lens.dut_info.monopoly.game.cases.action.CaseFallOnActionPopUp;
-import iut_lens.dut_info.monopoly.game.cases.action.FallOnChance;
+import iut_lens.dut_info.monopoly.game.cases.action.FallOnCommunityChest;
 import iut_lens.dut_info.monopoly.game.cases.clickAction.ClickAction;
 import iut_lens.dut_info.monopoly.game.cases.clickAction.DefaultClickAction;
 
@@ -28,7 +28,7 @@ public class CommunityChest extends Case {
 	@Override
 	public CaseFallOnActionPopUp onFallOn(Vector2f size, Vector2i windowSize,
 			Vector2f pos, Game game) {
-		return new FallOnChance(game.getListener(), pos, windowSize, size, this, game);
+		return new FallOnCommunityChest(game.getListener(), pos, windowSize, size, this, game);
 	}
 	@Override
 	public ClickAction onClickOn(ActionListener listener, Vector2f size,

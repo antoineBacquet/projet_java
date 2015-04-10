@@ -101,6 +101,10 @@ public class Game {
 		diceNumber = 1;
 		
 		//on bouge le joueur
+		if(players[actualPlayer].getPosition() + diceNumber > board.getNbCase()){
+			players[actualPlayer].giveMonney(PAYDAY);
+			content.majPlayerMoney(players[actualPlayer].getId());
+		}
 		Case caseTmp = board.movePlayer(players[actualPlayer],diceNumber); // TODO a remettre apres dices[0].getNumber() + dices[1].getNumber()
 		content.onPlayerMoved();
 		//on regarde l'action de la case actuel

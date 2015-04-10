@@ -173,7 +173,7 @@ public class GameContent extends Content{
 
 	public void onClickOnCase(ClickAction popUp) {
 		if(this.popUp != null)return;
-		System.out.println("GameContent :: onClickOnCase(ClickAction) -> test");
+		//System.out.println("GameContent :: onClickOnCase(ClickAction) -> test");
 		this.popUp = popUp; //new CaseActionPopUp(BOARD_TEXTURE+popUp, this, pos, super.getWindowOption().getSize(), size);
 		
 	}

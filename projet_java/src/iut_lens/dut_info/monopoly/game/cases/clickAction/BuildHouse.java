@@ -39,12 +39,16 @@ public class BuildHouse extends ClickAction {
 		
 		buildHouseButton = new Button(this,new Vector2f(150,50),"acheter maison");
 		removeHouse = new Button(this,new Vector2f(150,50),"vendre maison");
+		buildHouseButton.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.8f);
+		removeHouse.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.9f);
 		
-		if(property.getNbHouse()<5){
-			buildHouseButton.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.8f);
+		if(property.getNbHouse()==5){
+			buildHouseButton.disabled();
 		}
-		if(property.getNbHouse()>0){
-			removeHouse.setPositionRelativeToRectangle(super.rectangle, 0.5f, 0.9f);
+		if(property.getNbHouse()>0)
+			mortgageButton.disabled();
+		if(property.getNbHouse()==0){
+			removeHouse.disabled();
 		}
 		
 		
